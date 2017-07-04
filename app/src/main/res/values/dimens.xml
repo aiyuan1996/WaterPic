@@ -5,4 +5,9 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <!--主框架-->
+    <dimen name="dimen_small_text_size">14sp</dimen>
+    <dimen name="dimen_tiny_text_size">10sp</dimen>
+
+    <dimen name="dimen_person_edit_height">100dp</dimen>
 </resources>
