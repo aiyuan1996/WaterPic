@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import tobeone.waterpic.R;
 
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_take_photo) {
             // Handle the camera action
+            Toast.makeText(this, "Hello！", Toast.LENGTH_SHORT).show();
+
         } else if (id == R.id.nav_add_watermark) {
 
         } else if (id == R.id.nav_view_album) {
