@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_take_photo) {
             // Handle the camera action
             Toast.makeText(this, "Hello！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Hello！", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_add_watermark) {
 
         } else if (id == R.id.nav_view_album) {
