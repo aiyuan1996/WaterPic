@@ -1,7 +1,11 @@
 package tobeone.waterpic.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,10 +16,15 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import tobeone.waterpic.R;
+import tobeone.waterpic.fragment.AddWaterPicFragment;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private AddWaterPicFragment addWaterPicFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +49,23 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //取消提示框
+            new AlertDialog.Builder(this)
+                    .setMessage("是否退出应用？")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            }).show();
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,6 +101,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_add_watermark) {
 
+            initAddWaterPic();
+
         } else if (id == R.id.nav_view_album) {
 
         } else if (id == R.id.nav_setting) {
@@ -91,5 +116,29 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private void hideFragment(FragmentTransaction transaction){
+
+        if (addWaterPicFragment != null) {
+            transaction.hide(addWaterPicFragment);
+        }
+
+    }
+
+    private void initAddWaterPic() {
+
+        getSupportActionBar().setTitle("添加水印");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (addWaterPicFragment == null) {
+            addWaterPicFragment = new AddWaterPicFragment();
+            transaction.add(R.id.main_frame_layout, addWaterPicFragment);
+        }
+        //隐藏所有fragment
+        hideFragment(transaction);
+        //显示需要显示的fragment
+        transaction.show(addWaterPicFragment);
+        transaction.commit();
+
+
     }
 }

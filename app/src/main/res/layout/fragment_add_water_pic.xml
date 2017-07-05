@@ -1,20 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="tobeone.waterpic.activity.AddWaterPicture">
+    tools:context="tobeone.waterpic.fragment.AddWaterPicFragment">
 
-    <TextView
-        android:text="添加水印:"
-        android:textSize="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
+    <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.AppCompatImageView
+        android:layout_marginTop="15dp"
         android:id="@+id/imageView"
         android:layout_width="600px"
         android:layout_height="600px"
@@ -24,19 +17,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+
         >
 
         <Button
             android:id="@+id/btn_project_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="工程名称："/>
+            android:text="工程名称：" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
             android:layout_gravity="center_vertical"
-            />
+            android:textSize="25dp" />
 
     </LinearLayout>
 

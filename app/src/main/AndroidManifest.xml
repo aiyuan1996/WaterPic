@@ -39,7 +39,6 @@
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.AddWaterPicture" />
         <activity android:name=".activity.AddProjectName"></activity>
     </application>
 
