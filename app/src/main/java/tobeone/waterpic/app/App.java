@@ -14,7 +14,7 @@ import tobeone.waterpic.utils.ConstantUtils;
 public class App extends Application {
 
 
-    public static App app;
+    private static App app;
 
 
     public static App getAppIntance() {

@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.AddProjectName;
-import tobeone.waterpic.app.App;
 
 public class AddWaterPicFragment extends Fragment {
 

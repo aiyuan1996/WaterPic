@@ -19,11 +19,12 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 import tobeone.waterpic.R;
+import tobeone.waterpic.utils.ActivityCollector;
 import tobeone.waterpic.utils.ToastUtils;
 
 /**
  * 找回密码
- * Created by gc on 2017/1/18.
+ * Created by aiyuan on 2017/2/20
  */
 public class FindPasswordActivity extends AppCompatActivity {
     private static final String TAG = "FindPasswordActivity";
@@ -42,6 +43,7 @@ public class FindPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_password);
+        ActivityCollector.addActivity(this);
         ButterKnife.bind(this);
     }
 
@@ -123,4 +125,9 @@ public class FindPasswordActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
 }

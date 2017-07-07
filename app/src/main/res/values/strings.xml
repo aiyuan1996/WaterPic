@@ -40,6 +40,8 @@
     <string name="text_registered_successful">注册成功</string>
     <string name="text_registered_failure">注册失败：</string>
     <string name="text_nothing">这个人很懒，什么都没有留下！</string>
+    <string name="avatar_editor_success">头像更新成功</string>
+    <string name="avatar_editor_failure">头像更新失败</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

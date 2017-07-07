@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,13 +16,15 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import tobeone.waterpic.R;
-import tobeone.waterpic.dialog.CustomDialog;
 import tobeone.waterpic.entity.UserEntity;
+import tobeone.waterpic.utils.ActivityCollector;
+import tobeone.waterpic.utils.CustomDialog;
 import tobeone.waterpic.utils.SPUtils;
 import tobeone.waterpic.utils.ToastUtils;
 
 /**
  * 用户登录页
+ * Created by aiyuan on 2017/2/20
  */
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //ActivityCollector.addActivity(this);
         ButterKnife.bind(this);
         initView();
     }
@@ -68,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_login)
     public void onLogin(View view) {
-        String phone = mPhone.getText().toString().trim();
+        final String phone = mPhone.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         Log.d(TAG, "onLogin: ");
         if (!TextUtils.isEmpty(phone) & !TextUtils.isEmpty(password)) {
@@ -80,14 +82,12 @@ public class LoginActivity extends AppCompatActivity {
                     dialog.dismiss();
                     if (user != null) {
                         Log.d(TAG, "用户登陆成功");
-                        //LoginActivity.this.setResult(ConstantUtils.RESULT_UPDATE_INFO, new Intent());
-                        //finish();
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("tel",phone);
                         startActivity(intent);
-
+                        finish();
                     } else {
                         ToastUtils.showShort(getApplicationContext(), getString(R.string.text_login_failure)+ e.toString());
-                        Log.d(TAG, "用户登陆失败");
                     }
                 }
             });
@@ -95,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
             ToastUtils.showShort(getApplicationContext(), getString(R.string.text_tost_empty));
         }
     }
-
     /**
      * 假设我现在输入用户名和密码，但是我不点击登录，而是直接退出了
      */
@@ -113,6 +112,6 @@ public class LoginActivity extends AppCompatActivity {
             SPUtils.remove(this, "phone");
             SPUtils.remove(this, "password");
         }
+        ActivityCollector.removeActivity(this);
     }
-
 }

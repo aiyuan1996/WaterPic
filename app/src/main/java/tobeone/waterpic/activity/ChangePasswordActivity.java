@@ -13,11 +13,12 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
+import tobeone.waterpic.utils.ActivityCollector;
 import tobeone.waterpic.utils.ToastUtils;
 
 /**
  * 修改密码
- * Created by gc on 2017/2/10.
+ * Created by aiyuan on 2017/2/20
  */
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+        ActivityCollector.addActivity(this);
         ButterKnife.bind(this);
     }
 
@@ -65,4 +67,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
 }
