@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -20,13 +20,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Date;
-
 import tobeone.waterpic.R;
 import tobeone.waterpic.db.RecordSQLiteOpenHelper;
 import tobeone.waterpic.utils.MyListView;
 
-public class AddProjectName extends AppCompatActivity {
+public class AddCompanyName extends AppCompatActivity {
 
     private EditText et_search;
     private TextView tv_tip;
@@ -40,7 +38,7 @@ public class AddProjectName extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_add_project_name);
+        setContentView(R.layout.activity_add_company_name);
 
         initView();
         // 清空搜索历史
@@ -66,7 +64,7 @@ public class AddProjectName extends AppCompatActivity {
                         queryData("");
                     }
                     // TODO 根据输入的内容模糊查询商品，并跳转到另一个界面，由你自己去实现
-                    Toast.makeText(AddProjectName.this, "clicked!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCompanyName.this, "clicked!", Toast.LENGTH_SHORT).show();
 
                 }
                 return false;
@@ -103,7 +101,7 @@ public class AddProjectName extends AppCompatActivity {
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 String name = textView.getText().toString();
                 et_search.setText(name);
-                Toast.makeText(AddProjectName.this, name, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddCompanyName.this, name, Toast.LENGTH_SHORT).show();
                 // TODO 获取到item上面的文字，根据该关键字跳转到另一个页面查询
             }
         });
@@ -115,7 +113,7 @@ public class AddProjectName extends AppCompatActivity {
         // 第一次进入查询所有的历史记录
         queryData("");
 
-        
+
     }
     /**
      * 插入数据
@@ -161,7 +159,7 @@ public class AddProjectName extends AppCompatActivity {
     private void initView() {
         et_search = (EditText) findViewById(R.id.et_search);
         tv_tip = (TextView) findViewById(R.id.tv_tip);
-        listView = (tobeone.waterpic.utils.MyListView) findViewById(R.id.listView);
+        listView = (MyListView) findViewById(R.id.listView);
         tv_clear = (TextView) findViewById(R.id.tv_clear);
 
         // 调整EditText左边的搜索按钮的大小

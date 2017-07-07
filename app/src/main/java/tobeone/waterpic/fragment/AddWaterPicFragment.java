@@ -17,6 +17,8 @@ import tobeone.waterpic.app.App;
 
 public class AddWaterPicFragment extends Fragment {
 
+    public static final int ADD_WATER_NAME = 1;
+
 
     private ImageView imageView;
     private Button addProjectNameBtn;
@@ -45,9 +47,29 @@ public class AddWaterPicFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),AddProjectName.class);
-                startActivity(intent);
+                startActivityForResult(intent ,ADD_WATER_NAME);
             }
         });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 1){
+            switch (requestCode)
+            {
+                case ADD_WATER_NAME:{
+                    String backData = data.getStringExtra("data");
+
+                }
+            }
+
+        }
+
+
+
 
     }
 }

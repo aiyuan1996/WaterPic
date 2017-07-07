@@ -124,12 +124,11 @@ public class MainActivity extends AppCompatActivity
         if (addWaterPicFragment != null) {
             transaction.hide(addWaterPicFragment);
         }
-
     }
 
     private void initAddWaterPic() {
 
-        //getSupportActionBar().setTitle("添加水印");
+        getSupportActionBar().setTitle("添加水印");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (addWaterPicFragment == null) {
             addWaterPicFragment = new AddWaterPicFragment();
