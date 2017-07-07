@@ -53,7 +53,7 @@ import tobeone.waterpic.fragment.AddWaterPicFragment;
 import tobeone.waterpic.utils.ToastUtils;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 

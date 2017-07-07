@@ -26,7 +26,7 @@ import tobeone.waterpic.utils.ToastUtils;
  * 找回密码
  * Created by aiyuan on 2017/2/20
  */
-public class FindPasswordActivity extends AppCompatActivity {
+public class FindPasswordActivity extends BaseActivity {
     private static final String TAG = "FindPasswordActivity";
 
     @BindView(R.id.et_phone) EditText mPhone;
@@ -43,7 +43,7 @@ public class FindPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_password);
-        ActivityCollector.addActivity(this);
+
         ButterKnife.bind(this);
     }
 
@@ -125,9 +125,5 @@ public class FindPasswordActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityCollector.removeActivity(this);
-    }
+
 }

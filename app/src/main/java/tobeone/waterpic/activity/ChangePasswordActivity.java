@@ -20,7 +20,7 @@ import tobeone.waterpic.utils.ToastUtils;
  * 修改密码
  * Created by aiyuan on 2017/2/20
  */
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends BaseActivity {
 
     @BindView(R.id.et_now_pass) EditText mNowPass;
     @BindView(R.id.et_new_pass) EditText mNewPass;
@@ -30,7 +30,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-        ActivityCollector.addActivity(this);
+
         ButterKnife.bind(this);
     }
 
@@ -67,9 +67,4 @@ public class ChangePasswordActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityCollector.removeActivity(this);
-    }
 }

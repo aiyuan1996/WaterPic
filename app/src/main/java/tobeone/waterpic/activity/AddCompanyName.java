@@ -1,6 +1,7 @@
 package tobeone.waterpic.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -24,7 +25,10 @@ import tobeone.waterpic.R;
 import tobeone.waterpic.db.RecordSQLiteOpenHelper;
 import tobeone.waterpic.utils.MyListView;
 
-public class AddCompanyName extends AppCompatActivity {
+/**
+ * Created by 王特 on 2017/7/7.
+ */
+public class AddCompanyName extends BaseActivity {
 
     private EditText et_search;
     private TextView tv_tip;
@@ -63,8 +67,11 @@ public class AddCompanyName extends AppCompatActivity {
                         insertData(et_search.getText().toString().trim());
                         queryData("");
                     }
-                    // TODO 根据输入的内容模糊查询商品，并跳转到另一个界面，由你自己去实现
-                    Toast.makeText(AddCompanyName.this, "clicked!", Toast.LENGTH_SHORT).show();
+                    //跳转返回
+                    Intent intent = new Intent();
+                    intent.putExtra("data_company",et_search.getText().toString().trim());
+                    setResult(1, intent);
+                    finish();
 
                 }
                 return false;

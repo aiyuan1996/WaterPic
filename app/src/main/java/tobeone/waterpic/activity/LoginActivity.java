@@ -26,7 +26,7 @@ import tobeone.waterpic.utils.ToastUtils;
  * 用户登录页
  * Created by aiyuan on 2017/2/20
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
 
     @BindView(R.id.et_phone) EditText mPhone;
@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //ActivityCollector.addActivity(this);
         ButterKnife.bind(this);
         initView();
     }
@@ -112,6 +111,6 @@ public class LoginActivity extends AppCompatActivity {
             SPUtils.remove(this, "phone");
             SPUtils.remove(this, "password");
         }
-        ActivityCollector.removeActivity(this);
+
     }
 }

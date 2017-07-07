@@ -12,7 +12,7 @@ import tobeone.waterpic.R;
 import tobeone.waterpic.utils.ActivityCollector;
 
 
-public class UserManagerActivity extends AppCompatActivity {
+public class UserManagerActivity extends BaseActivity {
     private ListView listView;
     private String[] user_manage_item = {"更改密码","注销登陆"};
     private Intent intent;
@@ -21,7 +21,7 @@ public class UserManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_manage);
-        ActivityCollector.addActivity(this);
+
         listView = (ListView)findViewById(R.id.user_manage);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(UserManagerActivity.this,
                 android.R.layout.simple_list_item_1,user_manage_item);
@@ -40,9 +40,5 @@ public class UserManagerActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityCollector.removeActivity(this);
-    }
+
 }
