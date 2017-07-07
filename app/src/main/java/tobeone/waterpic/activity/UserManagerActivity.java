@@ -2,7 +2,6 @@ package tobeone.waterpic.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +10,11 @@ import android.widget.ListView;
 import tobeone.waterpic.R;
 import tobeone.waterpic.utils.ActivityCollector;
 
+/**
+* 用户管理
+* @author aiyuan
+*create at 2017/7/7 21:38
+*/
 
 public class UserManagerActivity extends BaseActivity {
     private ListView listView;

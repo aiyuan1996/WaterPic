@@ -20,7 +20,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -51,6 +50,11 @@ import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
 import tobeone.waterpic.utils.ToastUtils;
+/**
+* 主页面
+* @author aiyuan
+*create at 2017/7/7 21:37
+*/
 
 
 public class MainActivity extends BaseActivity

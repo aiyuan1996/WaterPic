@@ -8,9 +8,6 @@ import cn.bmob.v3.BmobConfig;
 import tobeone.waterpic.utils.ConfigUtils;
 import tobeone.waterpic.utils.ConstantUtils;
 
-/**
- * Created by gc on 2017/1/16.
- */
 public class App extends Application {
 
 

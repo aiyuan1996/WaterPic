@@ -9,9 +9,10 @@ import android.view.WindowManager;
 import tobeone.waterpic.R;
 
 /**
- * 自定义Dialog 加载中
- * Created by gc on 2017/1/16.
- */
+* 自定义对话框
+* @author aiyuan
+*create at 2017/7/8 0:11
+*/
 public class CustomDialog extends Dialog {
     /**
      * 定义模板
