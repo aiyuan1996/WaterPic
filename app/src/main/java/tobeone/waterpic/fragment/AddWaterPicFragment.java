@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import tobeone.waterpic.R;
+import tobeone.waterpic.activity.AddCompanyName;
 import tobeone.waterpic.activity.AddProjectName;
-import tobeone.waterpic.activity.FindPasswordActivity_ViewBinding;
 
 /**
  * Created by 王特 on 2017/7/7.
@@ -66,7 +66,7 @@ public class AddWaterPicFragment extends Fragment {
         addCompanyNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),AddProjectName.class);
+                Intent intent = new Intent(getActivity(),AddCompanyName.class);
                 startActivityForResult(intent ,ADD_COMPANY_NAME);
             }
         });

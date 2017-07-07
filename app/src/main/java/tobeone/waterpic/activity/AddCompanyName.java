@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -127,7 +126,7 @@ public class AddCompanyName extends BaseActivity {
      */
     private void insertData(String tempName) {
         db = helper.getWritableDatabase();
-        db.execSQL("insert into project_records(name) values('" + tempName + "')");
+        db.execSQL("insert into company_records(name) values('" + tempName + "')");
         db.close();
     }
 
@@ -136,7 +135,7 @@ public class AddCompanyName extends BaseActivity {
      */
     private void queryData(String tempName) {
         Cursor cursor = helper.getReadableDatabase().rawQuery(
-                "select id as _id,name from project_records where name like '%" + tempName.trim().toString() + "%' order by id desc ", null);
+                "select id as _id,name from company_records where name like '%" + tempName.trim().toString() + "%' order by id desc ", null);
         // 创建adapter适配器对象
         adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, new String[] { "name" },
                 new int[] { android.R.id.text1 }, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -149,7 +148,7 @@ public class AddCompanyName extends BaseActivity {
      */
     private boolean hasData(String tempName) {
         Cursor cursor = helper.getReadableDatabase().rawQuery(
-                "select id as _id,name from project_records where name =?", new String[]{tempName});
+                "select id as _id,name from company_records where name =?", new String[]{tempName});
         //判断是否有下一个
         return cursor.moveToNext();
     }
@@ -159,7 +158,7 @@ public class AddCompanyName extends BaseActivity {
      */
     private void deleteData() {
         db = helper.getWritableDatabase();
-        db.execSQL("delete from project_records");
+        db.execSQL("delete from company_records");
         db.close();
     }
 

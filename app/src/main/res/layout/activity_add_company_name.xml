@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="tobeone.waterpic.activity.AddProjectName">
+    tools:context="tobeone.waterpic.activity.AddCompanyName">
 
 
     <LinearLayout
