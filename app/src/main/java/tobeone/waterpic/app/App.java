@@ -13,7 +13,16 @@ import tobeone.waterpic.utils.ConstantUtils;
  */
 public class App extends Application {
 
+
     public static App app;
+
+
+    public static App getAppIntance() {
+        return app;
+    }
+
+
+
     @Override
     public void onCreate() {
         app = this;

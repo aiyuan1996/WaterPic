@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        initAddWaterPic();
+
     }
 
     @Override
@@ -80,7 +83,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -127,18 +129,16 @@ public class MainActivity extends AppCompatActivity
 
     private void initAddWaterPic() {
 
-        getSupportActionBar().setTitle("添加水印");
+        //getSupportActionBar().setTitle("添加水印");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (addWaterPicFragment == null) {
             addWaterPicFragment = new AddWaterPicFragment();
-            transaction.add(R.id.main_frame_layout, addWaterPicFragment);
+            transaction.add(R.id.content_main, addWaterPicFragment);
         }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment
         transaction.show(addWaterPicFragment);
         transaction.commit();
-
-
     }
 }

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.AddProjectName;
-
+import tobeone.waterpic.app.App;
 
 public class AddWaterPicFragment extends Fragment {
 
@@ -44,8 +44,8 @@ public class AddWaterPicFragment extends Fragment {
         addProjectNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = Intent(getActivity(),AddProjectName.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getActivity(),AddProjectName.class);
+                startActivity(intent);
             }
         });
 
