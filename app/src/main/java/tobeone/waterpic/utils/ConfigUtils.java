@@ -114,7 +114,7 @@ public class ConfigUtils {
      * 读取配置文件
      */
     public void readConfig() {
-        SharedPreferences user = App.app.getSharedPreferences("user_info", 0);
+        SharedPreferences user = App.getAppIntance().getSharedPreferences("user_info", 0);
         userInfo = user.getString("user_info", "");
         token = user.getString("token", "");
         uid = user.getInt("uid", 0);
@@ -124,7 +124,7 @@ public class ConfigUtils {
      * 保存配置文件
      */
     public void saveConfig() {
-        SharedPreferences user = App.app.getSharedPreferences("user_info", 0);
+        SharedPreferences user = App.getAppIntance().getSharedPreferences("user_info", 0);
         SharedPreferences.Editor ed = user.edit();
         ed.putString("user_info", userInfo);//客户信息
         ed.putString("token", token);//token
