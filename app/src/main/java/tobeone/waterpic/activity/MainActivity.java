@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
@@ -46,6 +47,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
+import tobeone.waterpic.PermissionListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
@@ -256,14 +258,26 @@ public class MainActivity extends BaseActivity
     /**
      * 跳转相机
      */
-    public void toCamera() {
-        requestWESPermission(); // 安卓6.0以上需要申请权限
-        photoDialog.dismiss();
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); // 调用系统的拍照功能
-        // 判断内存卡是否可用，可用的话就进行储存
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME)));
-        startActivityForResult(intent, CAMERA_REQUEST_CODE);
+    private void toCamera() {
+        RequestPermission(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
+            @Override
+            public void onGranted() {
+                photoDialog.dismiss();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); // 调用系统的拍照功能
+                // 判断内存卡是否可用，可用的话就进行储存
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME)));
+                startActivityForResult(intent, CAMERA_REQUEST_CODE);
+            }
+
+            @Override
+            public void onDenied(List<String> DeniedPermissionList) {
+                for (String permission:DeniedPermissionList) {
+                    Toast.makeText(MainActivity.this,"拒绝了权限："+permission,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     /**
@@ -276,23 +290,7 @@ public class MainActivity extends BaseActivity
         startActivityForResult(intent, IMAGE_REQUEST_CODE);
     }
 
-    /**
-     * 动态申请权限
-     */
-    private void requestWESPermission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-                // 判断是否需要 向用户解释，为什么要申请该权限
-                if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE))
-                    ToastUtils.showShort(MainActivity.this,"Need write external storage permission.");
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_BLUETOOTH_PERMISSION);
-                return;
-            } else {
-            }
-        } else {
-        }
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
