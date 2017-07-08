@@ -50,11 +50,7 @@ import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
 import tobeone.waterpic.utils.ToastUtils;
-/**
-* 主页面
-* @author aiyuan
-*create at 2017/7/7 21:37
-*/
+
 
 
 public class MainActivity extends BaseActivity

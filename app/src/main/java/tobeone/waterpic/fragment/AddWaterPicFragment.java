@@ -12,8 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.AddCompanyName;
@@ -30,8 +34,12 @@ public class AddWaterPicFragment extends Fragment  {
 
 
     private ImageView imageView;
-    private Button addProjectNameBtn,addCompanyNameBtn;
-    private TextView addProjectNameText,addCompanyNameText;
+    private LinearLayout projectNameLayout;
+    private LinearLayout CompanyNameLayout;
+    private LinearLayout TimeLayout;
+    private TextView addProjectNameText;
+    private TextView addCompanyNameText;
+    private TextView addTimeText;
 
 
 
@@ -45,11 +53,13 @@ public class AddWaterPicFragment extends Fragment  {
 
     private void initView(final View view) {
         imageView = ((ImageView) view.findViewById(R.id.imageView));
-        addProjectNameBtn = (Button) view.findViewById(R.id.btn_project_name);
+        projectNameLayout = (LinearLayout) view.findViewById(R.id.project_name_layout);
         addProjectNameText = (TextView) view.findViewById(R.id.text_project_name);
-
-        addCompanyNameBtn = (Button) view.findViewById(R.id.btn_bulid_compay);
+        CompanyNameLayout = (LinearLayout) view.findViewById(R.id.compay_name_layout);
         addCompanyNameText = (TextView) view.findViewById(R.id.text_bulid_compay);
+        TimeLayout = (LinearLayout) view.findViewById(R.id.time_now_layout);
+        addTimeText = (TextView) view.findViewById(R.id.text_now_time);
+
 
         imageView.setImageResource(R.drawable.default_pic);
 
@@ -64,36 +74,32 @@ public class AddWaterPicFragment extends Fragment  {
             @Override
             public boolean onLongClick(View v) {
                 //长按 图片进入选择菜单
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setItems(getResources().getStringArray(R.array.selectArray), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case 0:
-                                //照片来源---》拍照
-                                break;
-                            case 1:
-                                //照片来源---》图库
-                                break;
-                        }
-                    }
-                }).show();
+
 
                 return true;
             }
         });
-        addProjectNameBtn.setOnClickListener(new View.OnClickListener() {
+        projectNameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),AddProjectName.class);
                 startActivityForResult(intent ,ADD_PROJECT_NAME);
             }
         });
-        addCompanyNameBtn.setOnClickListener(new View.OnClickListener() {
+        CompanyNameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),AddCompanyName.class);
                 startActivityForResult(intent ,ADD_COMPANY_NAME);
+            }
+        });
+        TimeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String s = sdf.format(date);
+                addTimeText.setText(s);
             }
         });
 

@@ -7,6 +7,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.AppCompatImageView
+        android:paddingTop="0dp"
         android:layout_marginTop="15dp"
         android:id="@+id/imageView"
         android:layout_width="1500px"
@@ -16,46 +17,70 @@
         />
 
     <LinearLayout
-
+        android:id="@+id/project_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
 
-        <Button
-            android:id="@+id/btn_project_name"
+        <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="工程名称：" />
+            android:text="工程名称："
+            android:layout_gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/text_project_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
 
     </LinearLayout>
 
     <LinearLayout
-
+        android:id="@+id/compay_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
 
-        <Button
-            android:id="@+id/btn_bulid_compay"
+        <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="施工单位：" />
+            android:text="施工单位："
+            android:layout_gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/text_bulid_compay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/time_now_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前日期："
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/text_now_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="20dp" />
 
     </LinearLayout>
     <LinearLayout
