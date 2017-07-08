@@ -25,26 +25,35 @@ import tobeone.waterpic.R;
 public class BuilderManager {
 
     private static int[] imageResources = new int[]{
-            R.drawable.pic1,
-            R.drawable.pic2,
-            R.drawable.pic3,
+            R.drawable.white_black,
+            R.drawable.blue_balck,
+            R.drawable.white_blue,
+            R.drawable.black_white,
+            R.drawable.black_yellow,
+            R.drawable.yellow_white,
+            R.drawable.yellow_blue,
+            R.drawable.red_blue,
+            R.drawable.red_black
     };
 
-    private static int[] imageResources2 = new int[]{
-            R.drawable.pic3,
-            R.drawable.pic2,
-            R.drawable.pic1,
+    private static int[] directions = new int[]{
+            R.drawable.left_top,
+            R.drawable.right_top,
+            R.drawable.juzhong,
+            R.drawable.left_bottom,
+            R.drawable.right_bottom,
+
     };
     private static int imageResourceIndex = 0;
-    private static int imageResourceIndex2 = 0;
+    private static int directionsIndex2 = 0;
 
     public static int getImageResource() {
         if (imageResourceIndex >= imageResources.length) imageResourceIndex = 0;
         return imageResources[imageResourceIndex++];
     }
-    public static int getImageResource2() {
-        if (imageResourceIndex2 >= imageResources2.length) imageResourceIndex2 = 0;
-        return imageResources2[imageResourceIndex2++];
+    public static int getdirections() {
+        if (directionsIndex2 >= directions.length) directionsIndex2 = 0;
+        return directions[directionsIndex2++];
     }
 
     static SimpleCircleButton.Builder getSimpleCircleButtonBuilder() {

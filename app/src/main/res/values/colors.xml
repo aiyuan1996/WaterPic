@@ -21,9 +21,11 @@
     <color name="holo_orange_light">#ffffbb33</color>
     <!-- A dark Holo shade of orange -->
     <color name="holo_orange_dark">#ffff8800</color>
+    <color name="color_yellow">#fff100</color>
     <color name="base_color">#393A3F</color>
     <color name="color_white">#ffffff</color>
     <color name="color_black">#000000</color>
+    <color name="color_red">#ee1d24</color>
 
     <!-- 透明色-->
     <color name="transparent">#00000000</color>

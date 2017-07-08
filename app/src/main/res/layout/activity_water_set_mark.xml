@@ -67,8 +67,8 @@
         app:bmb_normalColor="@android:color/holo_orange_dark"
         app:bmb_highlightedColor="@android:color/holo_orange_light"
         app:bmb_buttonEnum="simpleCircle"
-        app:bmb_piecePlaceEnum="piecePlace_dot_9_1"
-        app:bmb_buttonPlaceEnum="buttonPlace_sc_9_1"
+        app:bmb_piecePlaceEnum="piecePlace_dot_5_4"
+        app:bmb_buttonPlaceEnum="buttonPlace_sc_5_4"
         app:bmb_pieceCornerRadius="1dp"
         />
 
@@ -83,8 +83,8 @@
         app:bmb_normalColor="@android:color/holo_blue_light"
         app:bmb_highlightedColor="@android:color/holo_blue_bright"
         app:bmb_buttonEnum="simpleCircle"
-        app:bmb_piecePlaceEnum="piecePlace_dot_9_1"
-        app:bmb_buttonPlaceEnum="buttonPlace_sc_9_1"
+        app:bmb_piecePlaceEnum="piecePlace_dot_2_1"
+        app:bmb_buttonPlaceEnum="buttonPlace_sc_2_1"
         />
 
 </RelativeLayout>
