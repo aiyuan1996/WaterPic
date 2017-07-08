@@ -1,25 +1,29 @@
 package tobeone.waterpic.fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.AddCompanyName;
 import tobeone.waterpic.activity.AddProjectName;
+import tobeone.waterpic.utils.TakePhotoView;
 
 /**
  * Created by 王特 on 2017/7/7.
  */
-public class AddWaterPicFragment extends Fragment {
+public class AddWaterPicFragment extends Fragment  {
 
     public static final int ADD_PROJECT_NAME = 1;
     public static final int ADD_COMPANY_NAME = 2;
@@ -52,10 +56,32 @@ public class AddWaterPicFragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //点击 图片放大
+                Toast.makeText(getActivity(),"点击事件",Toast.LENGTH_SHORT).show();
             }
         });
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //长按 图片进入选择菜单
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setItems(getResources().getStringArray(R.array.selectArray), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+                                //照片来源---》拍照
+                                break;
+                            case 1:
+                                //照片来源---》图库
+                                break;
+                        }
+                    }
+                }).show();
 
+                return true;
+            }
+        });
         addProjectNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,4 +123,6 @@ public class AddWaterPicFragment extends Fragment {
 
 
     }
+
+
 }

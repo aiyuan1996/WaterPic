@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="selectArray">
+        <item>拍照</item>
+        <item>图库</item>
+    </array>
+</resources>
