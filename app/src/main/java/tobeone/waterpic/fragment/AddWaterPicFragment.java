@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -29,7 +28,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -46,12 +49,6 @@ import tobeone.waterpic.activity.BigPictureActivity;
 import tobeone.waterpic.activity.WaterMarkSettingActivity;
 import tobeone.waterpic.app.App;
 import tobeone.waterpic.utils.ToastUtils;
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
 
 /**
  * Created by 王特 on 2017/7/7.
@@ -143,19 +140,18 @@ public class AddWaterPicFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 //点击 图片放大
-                if(imageView.getDrawable() != null){
-                    Intent intent = new Intent(getContext(), BigPictureActivity.class);
-                    Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                    Bitmap bitmap1 = Bitmap.createBitmap(image);
-                    intent.putExtra("pic_bitmap",bitmap1);
-                    startActivity(intent);
-                }
-                Toast.makeText(getActivity(),"请先添加图片：",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), BigPictureActivity.class);
+//                Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+//                Bitmap bitmap1 = Bitmap.createBitmap(image);
+//
+//                intent.putExtra("pic_bitmap",bitmap1);
+                startActivity(intent);
             }
         });
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                //长按 图片进入选择菜单
                 showDialog();
 
                 return true;
@@ -186,6 +182,54 @@ public class AddWaterPicFragment extends Fragment  {
         });
 
     }
+
+    private void getLocation() {
+
+        //初始化定位
+        mLocationClient = new AMapLocationClient(App.getAppIntance());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //获取一次定位结果：
+        //该方法默认为false。
+        mLocationOption.setOnceLocation(false);
+
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        mLocationOption.setOnceLocationLatest(true);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        //关闭缓存机制
+        mLocationOption.setLocationCacheEnable(false);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+
+    }
+    private class MyAMapLocationListener implements AMapLocationListener {
+
+        @Override
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            if (aMapLocation != null) {
+                if (aMapLocation.getErrorCode() == 0) {
+                    addLocationText.setText(aMapLocation.getAddress());
+                    Log.e("位置：", aMapLocation.getAddress());
+                } else {
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("AmapError", "location Error, ErrCode:"
+                            + aMapLocation.getErrorCode() + ", errInfo:"
+                            + aMapLocation.getErrorInfo());
+                }
+            }
+        }
+    }
+
     private void showDialog() {
         photoDialog = new android.support.v7.app.AlertDialog.Builder(getActivity()).create();
         photoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -219,6 +263,8 @@ public class AddWaterPicFragment extends Fragment  {
             }
         });
     }
+
+
     /**
      * 跳转相机
      */
@@ -279,53 +325,6 @@ public class AddWaterPicFragment extends Fragment  {
         intent.putExtra("return-data", true);
         startActivityForResult(intent, RESULT_REQUEST_CODE);
     }
-    private void getLocation() {
-
-        //初始化定位
-        mLocationClient = new AMapLocationClient(App.getAppIntance());
-        //设置定位回调监听
-        mLocationClient.setLocationListener(mLocationListener);
-        //初始化AMapLocationClientOption对象
-        mLocationOption = new AMapLocationClientOption();
-        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //获取一次定位结果：
-        //该方法默认为false。
-        mLocationOption.setOnceLocation(false);
-
-        //获取最近3s内精度最高的一次定位结果：
-        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
-        mLocationOption.setOnceLocationLatest(true);
-        //设置是否返回地址信息（默认返回地址信息）
-        mLocationOption.setNeedAddress(true);
-        //设置是否允许模拟位置,默认为false，不允许模拟位置
-        mLocationOption.setMockEnable(false);
-        //关闭缓存机制
-        mLocationOption.setLocationCacheEnable(false);
-        //给定位客户端对象设置定位参数
-        mLocationClient.setLocationOption(mLocationOption);
-        //启动定位
-        mLocationClient.startLocation();
-
-    }
-    private class MyAMapLocationListener implements AMapLocationListener {
-
-        @Override
-        public void onLocationChanged(AMapLocation aMapLocation) {
-            if (aMapLocation != null) {
-                if (aMapLocation.getErrorCode() == 0) {
-                    addLocationText.setText(aMapLocation.getAddress());
-                    Log.e("位置：", aMapLocation.getAddress());
-                } else {
-                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                    Log.e("AmapError", "location Error, ErrCode:"
-                            + aMapLocation.getErrorCode() + ", errInfo:"
-                            + aMapLocation.getErrorInfo());
-                }
-            }
-        }
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -353,7 +352,6 @@ public class AddWaterPicFragment extends Fragment  {
                     }
                     break;
                 case CAMERA_REQUEST_CODE: // 相机数据
-
                     tempFile = new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME);
                     startPhotoZoom(Uri.fromFile(tempFile));
                     break;
@@ -364,6 +362,7 @@ public class AddWaterPicFragment extends Fragment  {
                     }
                     break;
 
+           // }
 
         }
 
@@ -402,10 +401,5 @@ public class AddWaterPicFragment extends Fragment  {
         }
         return tempFile;
     }
-
-
-
-
-
 
 }
