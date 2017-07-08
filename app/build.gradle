@@ -57,4 +57,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.nightonke:boommenu:2.1.0'
     compile files('libs/AMap_Location_V3.4.1_20170629.jar')
+    compile 'com.zhihu.android:matisse:0.4.3'
 }
