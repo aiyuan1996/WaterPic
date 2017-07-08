@@ -42,7 +42,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.AddProjectName"></activity>
         <activity android:name=".activity.AddCompanyName"></activity>
-        <activity android:name=".activity.BigPictureActivity"/>
+        <activity
+            android:name=".activity.BigPictureActivity"
+            android:theme="@style/NoTitleFullscreen"/>
 
 
     </application>
