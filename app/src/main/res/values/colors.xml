@@ -3,6 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorBlack">@android:color/black</color>
+    <color name="colorShareBg">#242131</color>
 
     <color name="bottom_tab_bg">#EBEBEB</color>
     <color name="color_background">#EBEBEB</color>
