@@ -13,6 +13,7 @@ import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
 import tobeone.waterpic.R;
+import tobeone.waterpic.utils.BuilderManager;
 
 public class WaterMarkSettingActivity extends AppCompatActivity {
 
@@ -28,6 +29,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_water_set_mark);
 
         bmb1 = (BoomMenuButton) findViewById(R.id.bmb1);
+        assert bmb1 != null;
         for (int i = 0; i < bmb1.getPiecePlaceEnum().pieceNumber(); i++){
             SimpleCircleButton.Builder builder = new SimpleCircleButton.Builder()
                     .listener(new OnBMClickListener() {
@@ -37,6 +39,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
                             Toast.makeText(WaterMarkSettingActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
                         }
                     });
+            builder.normalImageRes(BuilderManager.getImageResource());
             bmb1.addBuilder(builder);
         }
 
@@ -51,6 +54,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
                             Toast.makeText(WaterMarkSettingActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
                         }
                     });
+            builder.normalImageRes(BuilderManager.getImageResource2());
             bmb2.addBuilder(builder);
         }
 
@@ -64,6 +68,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
                             Toast.makeText(WaterMarkSettingActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
                         }
                     });
+            builder.normalImageRes(BuilderManager.getImageResource());
             bmb3.addBuilder(builder);
         }
 

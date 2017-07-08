@@ -29,6 +29,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,10 +49,6 @@ import tobeone.waterpic.activity.BigPictureActivity;
 import tobeone.waterpic.activity.WaterMarkSettingActivity;
 import tobeone.waterpic.app.App;
 import tobeone.waterpic.utils.ToastUtils;
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 
 /**
  * Created by 王特 on 2017/7/7.
@@ -133,7 +134,7 @@ public class AddWaterPicFragment extends Fragment  {
 
 
 
-        imageView.setImageResource(R.drawable.default_pic);
+        //imageView.setImageResource(R.drawable.default_pic);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -400,7 +401,5 @@ public class AddWaterPicFragment extends Fragment  {
         }
         return tempFile;
     }
-
-
 
 }

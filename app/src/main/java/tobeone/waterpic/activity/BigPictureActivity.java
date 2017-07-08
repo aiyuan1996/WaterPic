@@ -42,7 +42,7 @@ public class BigPictureActivity extends BaseActivity implements View.OnClickList
         iv_preview_share.setOnClickListener(this);
         iv_preview_down = (ImageView) findViewById(R.id.iv_preview_down);
         iv_preview_down.setOnClickListener(this);
-        imageView.setImageResource(R.drawable.default_pic);
+        //imageView.setImageResource(R.drawable.default_pic);
 //
 //        Intent intent = getIntent();
 //        if (intent != null){
