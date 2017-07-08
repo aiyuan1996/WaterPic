@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -44,6 +45,7 @@ import tobeone.waterpic.PermissionListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.AddCompanyName;
 import tobeone.waterpic.activity.AddProjectName;
+import tobeone.waterpic.activity.BigPictureActivity;
 import tobeone.waterpic.activity.MainActivity;
 import tobeone.waterpic.utils.TakePhotoView;
 import tobeone.waterpic.utils.ToastUtils;
@@ -101,7 +103,12 @@ public class AddWaterPicFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 //点击 图片放大
-                Toast.makeText(getActivity(),"点击事件",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), BigPictureActivity.class);
+//                Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+//                Bitmap bitmap1 = Bitmap.createBitmap(image);
+//
+//                intent.putExtra("pic_bitmap",bitmap1);
+                startActivity(intent);
             }
         });
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -277,7 +284,7 @@ public class AddWaterPicFragment extends Fragment  {
     private void setImageToView(Intent data) {
         Bundle bundle = data.getExtras();
         if (bundle != null) {
-             Bitmap bitmap = bundle.getParcelable("data");
+           Bitmap  bitmap = bundle.getParcelable("data");
             imageView.setImageBitmap(bitmap);
             ToastUtils.showShort(getActivity(), "添加图片成功");
 

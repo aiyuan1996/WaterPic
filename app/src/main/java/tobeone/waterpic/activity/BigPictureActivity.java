@@ -1,12 +1,15 @@
 package tobeone.waterpic.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Gallery;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 
 import tobeone.waterpic.R;
 
@@ -22,12 +25,24 @@ public class BigPictureActivity extends BaseActivity implements View.OnClickList
     private ImageView iv_preview_share;
 
     private ImageView iv_preview_down;
+    private PopupWindow popWnd;
+    private View contentView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.activity_bigPicture);
+        setContentView(R.layout.activity_big_picture);
         initView();
+        initMenuWindow();
+    }
+
+    private void initMenuWindow() {
+        popWnd = new PopupWindow(this);
+        popWnd.setContentView(contentView);
+        popWnd.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popWnd.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popWnd.setOutsideTouchable(true);
+        popWnd.setBackgroundDrawable(new BitmapDrawable());
     }
 
 
@@ -40,6 +55,13 @@ public class BigPictureActivity extends BaseActivity implements View.OnClickList
         iv_preview_share.setOnClickListener(this);
         iv_preview_down = (ImageView) findViewById(R.id.iv_preview_down);
         iv_preview_down.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        if (intent != null){
+            Bitmap bitmap=intent.getParcelableExtra("pic_bitmap");
+            imageView.setImageBitmap(bitmap);
+
+        }
 
 
     }
@@ -59,6 +81,13 @@ public class BigPictureActivity extends BaseActivity implements View.OnClickList
                 //保存水印图片
 
                 break;
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (contentView.getParent() != null) {
+            popWnd.dismiss();
         }
     }
 }
