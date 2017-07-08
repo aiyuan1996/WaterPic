@@ -2,12 +2,10 @@ package tobeone.waterpic.fragment;
 
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -18,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,7 +27,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -39,15 +35,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-import tobeone.waterpic.PermissionListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.AddCompanyName;
 import tobeone.waterpic.activity.AddProjectName;
 import tobeone.waterpic.activity.BigPictureActivity;
-import tobeone.waterpic.activity.MainActivity;
-import tobeone.waterpic.utils.TakePhotoView;
+import tobeone.waterpic.activity.WaterMarkSettingActivity;
 import tobeone.waterpic.utils.ToastUtils;
 
 /**
@@ -75,6 +68,8 @@ public class AddWaterPicFragment extends Fragment  {
     private TextView addProjectNameText;
     private TextView addCompanyNameText;
     private TextView addTimeText;
+    private Button settingBtn;
+    private Button saveBtn;
 
 
 
@@ -95,6 +90,16 @@ public class AddWaterPicFragment extends Fragment  {
         addCompanyNameText = (TextView) view.findViewById(R.id.text_bulid_compay);
         TimeLayout = (LinearLayout) view.findViewById(R.id.time_now_layout);
         addTimeText = (TextView) view.findViewById(R.id.text_now_time);
+        settingBtn = (Button) view.findViewById(R.id.btn_setting);
+        saveBtn = (Button) view.findViewById(R.id.btn_save);
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         imageView.setImageResource(R.drawable.default_pic);
