@@ -9,8 +9,8 @@
     <android.support.v7.widget.AppCompatImageView
         android:layout_marginTop="1dp"
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="1000px"
+        android:layout_height="1000px"
         android:layout_gravity="center_horizontal"
 
         />
@@ -91,13 +91,14 @@
         >
 
         <Button
-            android:id="@+id/btn_select_"
+            android:id="@+id/btn_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="水 印 设置" />
 
         <Button
+            android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
