@@ -259,7 +259,7 @@ public class MainActivity extends BaseActivity
      * 跳转相机
      */
     private void toCamera() {
-        RequestPermission(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
+        RequestPermission(new String[]{ Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
             @Override
             public void onGranted() {
                 photoDialog.dismiss();
@@ -279,6 +279,7 @@ public class MainActivity extends BaseActivity
         });
 
     }
+
 
     /**
      * 跳转相册

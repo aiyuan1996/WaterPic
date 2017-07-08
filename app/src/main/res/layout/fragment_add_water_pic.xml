@@ -7,11 +7,10 @@
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.AppCompatImageView
-        android:paddingTop="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="1dp"
         android:id="@+id/imageView"
         android:layout_width="1500px"
-        android:layout_height="1500px"
+        android:layout_height="1700px"
         android:layout_gravity="center_horizontal"
 
         />
@@ -88,6 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="0dp"
         >
 
         <Button
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="水 印 选 择" />
+            android:text="水 印 设置" />
 
         <Button
             android:layout_width="wrap_content"
