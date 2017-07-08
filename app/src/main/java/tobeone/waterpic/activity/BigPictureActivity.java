@@ -2,6 +2,7 @@ package tobeone.waterpic.activity;
 
 import android.content.Intent;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
@@ -44,12 +45,12 @@ public class BigPictureActivity extends BaseActivity implements View.OnClickList
         iv_preview_down.setOnClickListener(this);
         imageView.setImageResource(R.drawable.default_pic);
 //
-//        Intent intent = getIntent();
-//        if (intent != null){
-//            Bitmap bitmap=intent.getParcelableExtra("pic_bitmap");
-//            imageView.setImageBitmap(bitmap);
-//
-//        }
+        Intent intent = getIntent();
+        if (intent != null){
+            Bitmap bitmap=intent.getParcelableExtra("pic_bitmap");
+            imageView.setImageBitmap(bitmap);
+            imageView.invalidate();
+        }
 
 
     }

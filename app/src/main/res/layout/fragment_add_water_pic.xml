@@ -9,8 +9,8 @@
     <android.support.v7.widget.AppCompatImageView
         android:layout_marginTop="1dp"
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="1200px"
+        android:layout_height="1500px"
         android:layout_gravity="center_horizontal"
 
         />
@@ -27,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="工程名称："
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/text_project_name"
@@ -50,7 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="施工单位："
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/text_bulid_compay"
@@ -72,7 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="当前日期："
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/text_now_time"
@@ -94,7 +97,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="当前位置："
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/text_now_location"
@@ -113,6 +117,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="0dp"
+        android:paddingBottom="0dp"
         >
 
         <Button
