@@ -17,6 +17,10 @@
     <color name="color_nav_pressed">#FF4081</color>
     <!-- bottom navigation end-->
 
+    <!-- A light Holo shade of orange -->
+    <color name="holo_orange_light">#ffffbb33</color>
+    <!-- A dark Holo shade of orange -->
+    <color name="holo_orange_dark">#ffff8800</color>
     <color name="base_color">#393A3F</color>
     <color name="color_white">#ffffff</color>
     <color name="color_black">#000000</color>
