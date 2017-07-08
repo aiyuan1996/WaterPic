@@ -19,15 +19,13 @@ public class WaterFragment extends Fragment {
 
 
     private GridView mGridView;
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_water,container,false);
         initView(view);
         return view;
-
-
     }
 
     private void initView(View v) {

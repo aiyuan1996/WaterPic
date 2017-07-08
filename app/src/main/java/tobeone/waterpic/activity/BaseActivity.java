@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import tobeone.waterpic.PermissionListener;
+import tobeone.waterpic.utils.PermissionListener;
 import tobeone.waterpic.utils.ActivityCollector;
 
 /**

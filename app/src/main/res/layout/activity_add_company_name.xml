@@ -32,7 +32,7 @@
             android:drawableLeft="@drawable/search"
             android:drawablePadding="8dp"
             android:gravity="start|center_vertical"
-            android:hint="请输入项目名称"
+            android:hint="请输入施工单位名称："
             android:imeOptions="actionSearch"
             android:singleLine="true"
             android:textColor="@android:color/white"

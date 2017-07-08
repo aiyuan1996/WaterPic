@@ -176,4 +176,9 @@ public class AddProjectName extends BaseActivity {
         drawable.setBounds(0, 0, 60, 60);// 第一0是距左边距离，第二0是距上边距离，60分别是长宽
         et_search.setCompoundDrawables(drawable, null, null, null);// 只放左边
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

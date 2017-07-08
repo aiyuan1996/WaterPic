@@ -9,8 +9,8 @@
     <android.support.v7.widget.AppCompatImageView
         android:layout_marginTop="1dp"
         android:id="@+id/imageView"
-        android:layout_width="1000px"
-        android:layout_height="1000px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
 
         />
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
 
     </LinearLayout>
 
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
 
     </LinearLayout>
     <LinearLayout
@@ -79,9 +79,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/location_now_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前位置："
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/text_now_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:layout_gravity="center_vertical"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
     <LinearLayout
 
         android:layout_width="match_parent"

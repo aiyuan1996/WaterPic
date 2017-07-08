@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,12 @@ import tobeone.waterpic.activity.AddCompanyName;
 import tobeone.waterpic.activity.AddProjectName;
 import tobeone.waterpic.activity.BigPictureActivity;
 import tobeone.waterpic.activity.WaterMarkSettingActivity;
+import tobeone.waterpic.app.App;
 import tobeone.waterpic.utils.ToastUtils;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 
 /**
  * Created by 王特 on 2017/7/7.
@@ -65,11 +71,23 @@ public class AddWaterPicFragment extends Fragment  {
     private LinearLayout projectNameLayout;
     private LinearLayout CompanyNameLayout;
     private LinearLayout TimeLayout;
+    private LinearLayout LocationLayout;
+
     private TextView addProjectNameText;
     private TextView addCompanyNameText;
     private TextView addTimeText;
+    private TextView addLocationText;
+
+
     private Button settingBtn;
     private Button saveBtn;
+
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener = new MyAMapLocationListener();
+    //声明AMapLocationClientOption对象
+    public AMapLocationClientOption mLocationOption = null;
 
 
 
@@ -78,6 +96,7 @@ public class AddWaterPicFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_water_pic, container, false);
         initView(view);
+        getLocation();
         totalView = view;
         return view;
     }
@@ -90,6 +109,9 @@ public class AddWaterPicFragment extends Fragment  {
         addCompanyNameText = (TextView) view.findViewById(R.id.text_bulid_compay);
         TimeLayout = (LinearLayout) view.findViewById(R.id.time_now_layout);
         addTimeText = (TextView) view.findViewById(R.id.text_now_time);
+        LocationLayout = (LinearLayout) view.findViewById(R.id.location_now_layout);
+        addLocationText = (TextView) view.findViewById(R.id.text_now_location);
+
         settingBtn = (Button) view.findViewById(R.id.btn_setting);
         saveBtn = (Button) view.findViewById(R.id.btn_save);
 
@@ -100,6 +122,15 @@ public class AddWaterPicFragment extends Fragment  {
                 startActivity(intent);
             }
         });
+
+        LocationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLocation();
+            }
+        });
+
+
 
 
         imageView.setImageResource(R.drawable.default_pic);
@@ -150,6 +181,54 @@ public class AddWaterPicFragment extends Fragment  {
         });
 
     }
+
+    private void getLocation() {
+
+        //初始化定位
+        mLocationClient = new AMapLocationClient(App.getAppIntance());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //获取一次定位结果：
+        //该方法默认为false。
+        mLocationOption.setOnceLocation(false);
+
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        mLocationOption.setOnceLocationLatest(true);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        //关闭缓存机制
+        mLocationOption.setLocationCacheEnable(false);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+
+    }
+    private class MyAMapLocationListener implements AMapLocationListener {
+
+        @Override
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            if (aMapLocation != null) {
+                if (aMapLocation.getErrorCode() == 0) {
+                    addLocationText.setText(aMapLocation.getAddress());
+                    Log.e("位置：", aMapLocation.getAddress());
+                } else {
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("AmapError", "location Error, ErrCode:"
+                            + aMapLocation.getErrorCode() + ", errInfo:"
+                            + aMapLocation.getErrorInfo());
+                }
+            }
+        }
+    }
+
     private void showDialog() {
         photoDialog = new android.support.v7.app.AlertDialog.Builder(getActivity()).create();
         photoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -254,12 +333,17 @@ public class AddWaterPicFragment extends Fragment  {
             switch (requestCode)
             {
                 case ADD_PROJECT_NAME:
-                    String backDataProject = data.getStringExtra("data_project");
-                    addProjectNameText.setText(backDataProject);
+                    if (data != null){
+
+                        String backDataProject = data.getStringExtra("data_project");
+                        addProjectNameText.setText(backDataProject);
+                    }
                     break;
                 case ADD_COMPANY_NAME:
-                    String backDataCompany = data.getStringExtra("data_company");
-                    addCompanyNameText.setText(backDataCompany);
+                    if (data!=null){
+                        String backDataCompany = data.getStringExtra("data_company");
+                        addCompanyNameText.setText(backDataCompany);
+                    }
                     break;
                 case IMAGE_REQUEST_CODE: // 相册数据
                     if (data != null) {

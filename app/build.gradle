@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'waterpic'
+            storeFile file('C:/keystore/WaterPic.jks')
+            storePassword 'waterpic'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -15,23 +23,23 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     //依赖注入框架ButterKnife
-
     //圆角图片CircleImageView
     //图片加载库Glide
-
     //bmob-sms，Bmob单独为短信服务提供的包
-
     //bmob兼容Android6.0
     //圆角图片CircleImageView
     //图片加载库Glide
@@ -48,4 +56,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.nightonke:boommenu:2.1.0'
+    compile files('libs/AMap_Location_V3.4.1_20170629.jar')
 }
