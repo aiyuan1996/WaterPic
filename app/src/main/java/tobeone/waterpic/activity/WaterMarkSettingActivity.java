@@ -15,10 +15,15 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import tobeone.waterpic.R;
+import tobeone.waterpic.entity.WaterInfoEntity;
 import tobeone.waterpic.utils.BuilderManager;
 import tobeone.waterpic.utils.ImageUtil;
 import tobeone.waterpic.utils.OperationUtils;
+import tobeone.waterpic.utils.ToastUtils;
+
 /**
 *
 * @author aiyuan
@@ -44,6 +49,10 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
     private Bitmap waterBitmap;
 
     private String Marktext;
+    private String projectName;
+    private String companyName;
+    private String currentTime;
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,12 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         if (intent != null){
             srcBitmap = intent.getParcelableExtra("src_bitmap");
             Marktext = intent.getStringExtra("water_info");
+            //projectName  companyName currentTime location
+            projectName = intent.getStringExtra("projectName");
+            companyName = intent.getStringExtra("companyName");
+            currentTime = intent.getStringExtra("currentTime");
+            location = intent.getStringExtra("location");
+
         }
     }
 
@@ -180,7 +195,26 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         4,direction_code, font_color_code,background_color_code,0,0);
         Intent intent = new Intent(WaterMarkSettingActivity.this,BigPictureActivity.class);
         intent.putExtra("pic_bitmap",waterBitmap);
+        saveToServer();
         startActivity(intent);
+    }
+    private void saveToServer(){
+        WaterInfoEntity waterInfoEntity = new WaterInfoEntity();
+        waterInfoEntity.setProjectName(projectName);
+        waterInfoEntity.setCompanyName(companyName);
+        waterInfoEntity.setCurrentTime(currentTime);
+        waterInfoEntity.setLocation(location);
+        //waterInfoEntity.setUsername();
+        waterInfoEntity.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId,BmobException e) {
+                if(e==null){
+                    ToastUtils.showShort(WaterMarkSettingActivity.this,"添加数据成功，返回objectId为："+objectId);
+                }else{
+                    ToastUtils.showShort(WaterMarkSettingActivity.this,"创建数据失败：" + e.getMessage());
+                }
+            }
+        });
     }
 
     public int[] returnValueCode(){

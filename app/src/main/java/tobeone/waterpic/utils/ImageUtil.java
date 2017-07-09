@@ -2,19 +2,30 @@ package tobeone.waterpic.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Environment;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by 王特 on 2017/7/9.
  */
 
 public class ImageUtil  {
+    private String fileName;
 
-    public static Bitmap createWaterBitmap(Context context,Bitmap src,String text,int size,int directionCode, int font_color_code,int background_color_code,int paddingLeft, int paddingTop){
+    public ImageUtil(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public static Bitmap createWaterBitmap(Context context, Bitmap src, String text, int size, int directionCode, int font_color_code, int background_color_code, int paddingLeft, int paddingTop){
         switch (directionCode){
             case 0:
                 return drawTextToLeftTop(context,src,text,size,font_color_code,paddingLeft,paddingTop,background_color_code);
@@ -153,10 +164,11 @@ public class ImageUtil  {
         }
         bitmap = bitmap.copy(bitmapConfig, true);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(background_color);
         canvas.drawText(text, paddingLeft, paddingTop, paint);
         return bitmap;
     }
+
+
 
     /**
      * 缩放图片
@@ -193,5 +205,24 @@ public class ImageUtil  {
     public static int dp2px(Context context, float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
+    }
+
+    /**
+     * Bitmap转File
+     */
+    public File bitmapToFile(Bitmap bitmap) {
+        File file = new File(Environment.getExternalStorageDirectory(), fileName);
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {
+                bos.flush();
+                bos.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 }

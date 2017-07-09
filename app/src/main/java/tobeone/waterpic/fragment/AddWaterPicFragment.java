@@ -36,11 +36,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -141,7 +137,14 @@ public class AddWaterPicFragment extends Fragment  {
                     if (!addTimeText.getText().toString().trim().equals("")){
                         watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
                     }
+                    if(!addLocationText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setLocation(addLocationText.getText().toString().trim());
+                    }
                     intent.putExtra("water_info",watermarkInformationEntity.toString());
+                    intent.putExtra("projectName",watermarkInformationEntity.getProjectName());
+                    intent.putExtra("companyName",watermarkInformationEntity.getConpanyName());
+                    intent.putExtra("currentTime",watermarkInformationEntity.getNowTime());
+                    intent.putExtra("location",watermarkInformationEntity.getLocation());
                     startActivity(intent);
                 }
 
@@ -410,24 +413,4 @@ public class AddWaterPicFragment extends Fragment  {
             ToastUtils.showShort(getActivity(), "添加图片失败");
         }
     }
-
-    /**
-     * Bitmap转File
-     */
-    public File bitmapToFile(Bitmap bitmap) {
-        tempFile = new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME);
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(tempFile));
-            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {
-                bos.flush();
-                bos.close();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return tempFile;
-    }
-
 }
