@@ -93,7 +93,7 @@ public class AddWaterPicFragment extends Fragment  {
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
 
-    public WatermarkInformationEntity watermarkInformationEntity;
+    public WatermarkInformationEntity watermarkInformationEntity = new WatermarkInformationEntity();
 
 
 
@@ -124,23 +124,23 @@ public class AddWaterPicFragment extends Fragment  {
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (imageView.getDrawable()!=null){
-                    Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
-                    Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                    Bitmap bitmap1 = Bitmap.createBitmap(image);
-                    intent.putExtra("src_bitmap",bitmap1);
-                    if (!addProjectNameText.getText().toString().trim().equals("")){
-                        watermarkInformationEntity.setProjectName(addProjectNameText.getText().toString().trim());
-                    }
-                    if (!addCompanyNameText.getText().toString().trim().equals("")){
-                        watermarkInformationEntity.setConpanyName(addCompanyNameText.getText().toString().trim());
-                    }
-                    if (!addTimeText.getText().toString().trim().equals("")){
-                        watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
-                    }
-                    intent.putExtra("water_info",watermarkInformationEntity.toString());
-                    startActivityForResult(intent,555);
+                if (imageView.getDrawable()==null){
                 }
+                Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
+                Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                Bitmap bitmap1 = Bitmap.createBitmap(image);
+                intent.putExtra("src_bitmap",bitmap1);
+                if (!addProjectNameText.getText().toString().trim().equals("")){
+                    watermarkInformationEntity.setProjectName(addProjectNameText.getText().toString().trim());
+                }
+                if (!addCompanyNameText.getText().toString().trim().equals("")){
+                    watermarkInformationEntity.setConpanyName(addCompanyNameText.getText().toString().trim());
+                }
+                if (!addTimeText.getText().toString().trim().equals("")){
+                    watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
+                }
+                intent.putExtra("water_info",watermarkInformationEntity.toString());
+                startActivity(intent);
 
             }
         });
