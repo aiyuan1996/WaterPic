@@ -30,7 +30,5 @@ public class OperationUtils {
     public int getFontsCodes(int i,int j){
         return fonts_codes[i][j];
     }
-    public int getDirecitonsCodes(int i){
-        return i;
-    }
+
 }

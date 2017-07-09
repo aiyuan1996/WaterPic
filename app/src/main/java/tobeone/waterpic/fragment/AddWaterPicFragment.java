@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -28,6 +29,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -48,6 +50,7 @@ import tobeone.waterpic.activity.AddProjectName;
 import tobeone.waterpic.activity.BigPictureActivity;
 import tobeone.waterpic.activity.WaterMarkSettingActivity;
 import tobeone.waterpic.app.App;
+import tobeone.waterpic.entity.WatermarkInformationEntity;
 import tobeone.waterpic.utils.ToastUtils;
 
 /**
@@ -90,6 +93,8 @@ public class AddWaterPicFragment extends Fragment  {
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
 
+    public WatermarkInformationEntity watermarkInformationEntity;
+
 
 
     @Nullable
@@ -119,8 +124,24 @@ public class AddWaterPicFragment extends Fragment  {
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
-                startActivity(intent);
+                if (imageView.getDrawable()!=null){
+                    Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
+                    Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    Bitmap bitmap1 = Bitmap.createBitmap(image);
+                    intent.putExtra("src_bitmap",bitmap1);
+                    if (!addProjectNameText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setProjectName(addProjectNameText.getText().toString().trim());
+                    }
+                    if (!addCompanyNameText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setConpanyName(addCompanyNameText.getText().toString().trim());
+                    }
+                    if (!addTimeText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
+                    }
+                    intent.putExtra("water_info",watermarkInformationEntity.toString());
+                    startActivityForResult(intent,555);
+                }
+
             }
         });
 
@@ -139,13 +160,16 @@ public class AddWaterPicFragment extends Fragment  {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //点击 图片放大
-                Intent intent = new Intent(getContext(), BigPictureActivity.class);
-//                Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-//                Bitmap bitmap1 = Bitmap.createBitmap(image);
-//
-//                intent.putExtra("pic_bitmap",bitmap1);
-                startActivity(intent);
+                if (imageView.getDrawable()!=null){
+                    //点击 图片放大
+                    Intent intent = new Intent(getContext(), BigPictureActivity.class);
+                    Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    Bitmap bitmap1 = Bitmap.createBitmap(image);
+                    intent.putExtra("pic_bitmap",bitmap1);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getActivity(),"请添加图片",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -314,7 +338,7 @@ public class AddWaterPicFragment extends Fragment  {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         // 设置裁剪
-        intent.putExtra("crop", "true");
+        intent.putExtra("crop", "false");
         // 裁剪宽高比例
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);

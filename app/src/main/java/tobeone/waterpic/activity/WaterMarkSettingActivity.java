@@ -1,5 +1,7 @@
 package tobeone.waterpic.activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.nightonke.boommenu.BoomMenuButton;
 
 import tobeone.waterpic.R;
 import tobeone.waterpic.utils.BuilderManager;
+import tobeone.waterpic.utils.ImageUtil;
 import tobeone.waterpic.utils.OperationUtils;
 /**
 *
@@ -32,9 +35,15 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
     private String fonts = "";
     private int background_color_code = R.color.color_black;
     private int font_color_code = R.color.color_white;
-    private int direction_code = R.color.color_white;
+    private int direction_code = 4;
     private OperationUtils operationUtils;
     private static final String TAG = "WaterMarkSettingActivit";
+
+    private Bitmap srcBitmap;
+
+    private Bitmap waterBitmap;
+
+    private String Marktext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,11 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
 
         BoomMenuButtoninit();
         SeekBarinit();
+        Intent intent = getIntent();
+        if (intent != null){
+            srcBitmap = intent.getParcelableExtra("src_bitmap");
+            Marktext = intent.getStringExtra("water_info");
+        }
     }
 
 
@@ -115,7 +129,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
                         public void onBoomButtonClick(int index) {
                             //// TODO: 2017/7/9
                             direction = operationUtils.getDirections(index);
-                            direction_code = index;
+                            direction_code = index ;
                             Toast.makeText(WaterMarkSettingActivity.this, "您选择将水印放在" + direction, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -137,6 +151,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
                                     for(int i = 0;i < temp.length;i++){
                                         Log.d(TAG, "" + temp[i]);
                                     }
+                                    saveBtn();
                                     Toast.makeText(WaterMarkSettingActivity.this,"您保存的当前操作是:" +
                                             "选择将水印放在" + direction + "  背景和字体颜色是" + fonts,Toast.LENGTH_SHORT).show();
                                 }else{
@@ -158,6 +173,12 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
 
             bmb3.addBuilder(builder);
         }
+    }
+    private void saveBtn(){
+        waterBitmap = ImageUtil.createWaterBitmap(WaterMarkSettingActivity.this,srcBitmap,Marktext,16,direction_code,font_color_code,background_color_code,0,0);
+        Intent intent = new Intent(WaterMarkSettingActivity.this,BigPictureActivity.class);
+        intent.putExtra("pic_bitmap",waterBitmap);
+        startActivity(intent);
     }
 
     public int[] returnValueCode(){

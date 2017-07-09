@@ -99,6 +99,8 @@ public class MainActivity extends BaseActivity
 
         initAddWaterPic();
 
+
+
     }
 
     @Override
