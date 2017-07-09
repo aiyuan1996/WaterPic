@@ -2,12 +2,9 @@ package tobeone.waterpic.fragment;
 
 
 import android.Manifest;
-import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -39,10 +35,6 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.engine.impl.PicassoEngine;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -51,7 +43,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.AddCompanyName;
@@ -60,7 +51,6 @@ import tobeone.waterpic.activity.BigPictureActivity;
 import tobeone.waterpic.activity.WaterMarkSettingActivity;
 import tobeone.waterpic.app.App;
 import tobeone.waterpic.entity.WatermarkInformationEntity;
-import tobeone.waterpic.utils.ConstantUtils;
 import tobeone.waterpic.utils.ToastUtils;
 
 /**
@@ -70,6 +60,7 @@ public class AddWaterPicFragment extends Fragment  {
 
     public static final int ADD_PROJECT_NAME = 1;
     public static final int ADD_COMPANY_NAME = 2;
+    private  View totalView;
 
     private android.support.v7.app.AlertDialog photoDialog;
     private static final String PHOTO_IMAGE_FILE_NAME = "WaterPic.jpg";
@@ -77,6 +68,7 @@ public class AddWaterPicFragment extends Fragment  {
     private static final int IMAGE_REQUEST_CODE = 101;
     private static final int RESULT_REQUEST_CODE = 102;
     private static final int REQUEST_BLUETOOTH_PERMISSION = 10;
+    private static final String TAG = "AddWaterFragment";
     private File tempFile = null;
 
     private ImageView imageView;
@@ -111,6 +103,7 @@ public class AddWaterPicFragment extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_add_water_pic, container, false);
         initView(view);
         getLocation();
+        totalView = view;
         return view;
     }
 
@@ -132,22 +125,29 @@ public class AddWaterPicFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 if (imageView.getDrawable()==null){
+                    Toast.makeText(getActivity(),"您还未选择图片，请先进行图片的选择",Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
-                Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                Bitmap bitmap1 = Bitmap.createBitmap(image);
-                intent.putExtra("src_bitmap",bitmap1);
-                if (!addProjectNameText.getText().toString().trim().equals("")){
-                    watermarkInformationEntity.setProjectName(addProjectNameText.getText().toString().trim());
+                else{
+                    Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
+                    Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    Bitmap bitmap1 = Bitmap.createBitmap(image);
+                    intent.putExtra("src_bitmap",bitmap1);
+                    if (!addProjectNameText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setProjectName(addProjectNameText.getText().toString().trim());
+                    }
+                    if (!addCompanyNameText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setConpanyName(addCompanyNameText.getText().toString().trim());
+                    }
+                    if (!addTimeText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
+                    }
+                    intent.putExtra("water_info",watermarkInformationEntity.toString());
+                    intent.putExtra("project_Name",watermarkInformationEntity.getProjectName());
+                    intent.putExtra("company_Name",watermarkInformationEntity.getConpanyName());
+                    intent.putExtra("current_time",watermarkInformationEntity.getNowTime());
+                    startActivity(intent);
                 }
-                if (!addCompanyNameText.getText().toString().trim().equals("")){
-                    watermarkInformationEntity.setConpanyName(addCompanyNameText.getText().toString().trim());
-                }
-                if (!addTimeText.getText().toString().trim().equals("")){
-                    watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
-                }
-                intent.putExtra("water_info",watermarkInformationEntity.toString());
-                startActivity(intent);
+
 
             }
         });
@@ -396,23 +396,16 @@ public class AddWaterPicFragment extends Fragment  {
            // }
 
         }
+
+
+
+
     }
-//    private String getImagePath(Uri uri,String selection){
-//        String path = null;
-//        Cursor cursor = getContext().getContentResolver().query(uri,null,selection,null,null);
-//        if (cursor != null){
-//            if (cursor.moveToFirst()){
-//                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-//            }
-//            cursor.close();
-//        }
-//        return path;
-//    }
 
     private void setImageToView(Intent data) {
         Bundle bundle = data.getExtras();
         if (bundle != null) {
-            Bitmap bitmap = bundle.getParcelable("data");
+           Bitmap  bitmap = bundle.getParcelable("data");
             imageView.setImageBitmap(bitmap);
             ToastUtils.showShort(getActivity(), "添加图片成功");
 
