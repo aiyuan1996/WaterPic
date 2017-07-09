@@ -142,6 +142,9 @@ public class AddWaterPicFragment extends Fragment  {
                         watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
                     }
                     intent.putExtra("water_info",watermarkInformationEntity.toString());
+                    intent.putExtra("project_Name",watermarkInformationEntity.getProjectName());
+                    intent.putExtra("company_Name",watermarkInformationEntity.getConpanyName());
+                    intent.putExtra("current_time",watermarkInformationEntity.getNowTime());
                     startActivity(intent);
                 }
 

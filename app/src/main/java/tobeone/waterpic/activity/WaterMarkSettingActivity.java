@@ -43,7 +43,9 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
 
     private Bitmap waterBitmap;
 
-    private String Marktext;
+    private String projectName;
+    private String companytName;
+    private String currentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,9 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null){
             srcBitmap = intent.getParcelableExtra("src_bitmap");
-            Marktext = intent.getStringExtra("water_info");
+            projectName = intent.getStringExtra("project_Name");
+            companytName = intent.getStringExtra("company_Name");
+            currentTime = intent.getStringExtra("current_time");
         }
     }
 
@@ -175,8 +179,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         }
     }
     private void saveBtn(){
-        //waterBitmap = ImageUtil.createWaterBitmap(WaterMarkSettingActivity.this,srcBitmap,Marktext,4,direction_code,font_color_code,background_color_code,0,0);
-        waterBitmap = ImageUtil.createWaterBitmap(WaterMarkSettingActivity.this,srcBitmap,Marktext,
+        waterBitmap = ImageUtil.createWaterBitmap(WaterMarkSettingActivity.this,srcBitmap,projectName,companytName,currentTime,
         4,direction_code, font_color_code,background_color_code,0,0);
         Intent intent = new Intent(WaterMarkSettingActivity.this,BigPictureActivity.class);
         intent.putExtra("pic_bitmap",waterBitmap);
