@@ -13,6 +13,8 @@ public class WaterInfoEntity extends BmobObject{
     private String companyName;
     private String currentTime;
     private String location;
+    private String username;
+    private BmobFile picture;
 
     public void setUsername(String username) {
         this.username = username;
@@ -22,8 +24,7 @@ public class WaterInfoEntity extends BmobObject{
         return username;
     }
 
-    private String username;
-    private BmobFile picture;
+
 
     public void setPicture(BmobFile picture) {
         this.picture = picture;

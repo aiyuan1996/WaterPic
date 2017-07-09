@@ -15,8 +15,10 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.entity.WaterInfoEntity;
 import tobeone.waterpic.utils.BuilderManager;
@@ -42,6 +44,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
     private int font_color_code = R.color.color_white;
     private int direction_code = 4;
     private OperationUtils operationUtils;
+    private static final String PHOTO_IMAGE_FILE_NAME = "fileImg.jpg";
     private static final String TAG = "WaterMarkSettingActivit";
 
     private Bitmap srcBitmap;
@@ -199,22 +202,34 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void saveToServer(){
-        WaterInfoEntity waterInfoEntity = new WaterInfoEntity();
+        final WaterInfoEntity waterInfoEntity = new WaterInfoEntity();
         waterInfoEntity.setProjectName(projectName);
         waterInfoEntity.setCompanyName(companyName);
         waterInfoEntity.setCurrentTime(currentTime);
         waterInfoEntity.setLocation(location);
-        //waterInfoEntity.setUsername();
-        waterInfoEntity.save(new SaveListener<String>() {
+        ImageUtil imageUtil = new ImageUtil(PHOTO_IMAGE_FILE_NAME);
+        final BmobFile bmobFile = new BmobFile(imageUtil.bitmapToFile(waterBitmap));
+        //waterInfoEntity.setPicture(bmobFile);
+        bmobFile.uploadblock(new UploadFileListener() {
             @Override
-            public void done(String objectId,BmobException e) {
-                if(e==null){
-                    ToastUtils.showShort(WaterMarkSettingActivity.this,"添加数据成功，返回objectId为："+objectId);
-                }else{
-                    ToastUtils.showShort(WaterMarkSettingActivity.this,"创建数据失败：" + e.getMessage());
+            public void done(BmobException e) {
+                if(e == null){
+                    waterInfoEntity.setPicture(bmobFile);
+                    waterInfoEntity.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if(e==null){
+                                ToastUtils.showShort(WaterMarkSettingActivity.this,"添加数据成功，返回objectId为："+s);
+                            }else{
+                                ToastUtils.showShort(WaterMarkSettingActivity.this,"创建数据失败：" + e.getMessage());
+                                Log.d(TAG, "---->>>" + e.getMessage());
+                            }
+                        }
+                    });
                 }
             }
         });
+
     }
 
     public int[] returnValueCode(){
