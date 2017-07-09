@@ -9,8 +9,8 @@
     <android.support.v7.widget.AppCompatImageView
         android:layout_marginTop="1dp"
         android:id="@+id/imageView"
-        android:layout_width="1200px"
-        android:layout_height="1500px"
+        android:layout_width="300dp"
+        android:layout_height="350dp"
         android:layout_gravity="center_horizontal"
 
         />

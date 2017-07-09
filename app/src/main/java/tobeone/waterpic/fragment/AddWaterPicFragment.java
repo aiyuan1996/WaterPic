@@ -125,22 +125,26 @@ public class AddWaterPicFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 if (imageView.getDrawable()==null){
+                    Toast.makeText(getActivity(),"您还未选择图片，请先进行图片的选择",Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
-                Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                Bitmap bitmap1 = Bitmap.createBitmap(image);
-                intent.putExtra("src_bitmap",bitmap1);
-                if (!addProjectNameText.getText().toString().trim().equals("")){
-                    watermarkInformationEntity.setProjectName(addProjectNameText.getText().toString().trim());
+                else{
+                    Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
+                    Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    Bitmap bitmap1 = Bitmap.createBitmap(image);
+                    intent.putExtra("src_bitmap",bitmap1);
+                    if (!addProjectNameText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setProjectName(addProjectNameText.getText().toString().trim());
+                    }
+                    if (!addCompanyNameText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setConpanyName(addCompanyNameText.getText().toString().trim());
+                    }
+                    if (!addTimeText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
+                    }
+                    intent.putExtra("water_info",watermarkInformationEntity.toString());
+                    startActivity(intent);
                 }
-                if (!addCompanyNameText.getText().toString().trim().equals("")){
-                    watermarkInformationEntity.setConpanyName(addCompanyNameText.getText().toString().trim());
-                }
-                if (!addTimeText.getText().toString().trim().equals("")){
-                    watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
-                }
-                intent.putExtra("water_info",watermarkInformationEntity.toString());
-                startActivity(intent);
+
 
             }
         });

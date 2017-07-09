@@ -175,7 +175,9 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         }
     }
     private void saveBtn(){
-        waterBitmap = ImageUtil.createWaterBitmap(WaterMarkSettingActivity.this,srcBitmap,Marktext,4,direction_code,font_color_code,background_color_code,0,0);
+        //waterBitmap = ImageUtil.createWaterBitmap(WaterMarkSettingActivity.this,srcBitmap,Marktext,4,direction_code,font_color_code,background_color_code,0,0);
+        waterBitmap = ImageUtil.createWaterBitmap(WaterMarkSettingActivity.this,srcBitmap,Marktext,
+        4,direction_code, font_color_code,background_color_code,0,0);
         Intent intent = new Intent(WaterMarkSettingActivity.this,BigPictureActivity.class);
         intent.putExtra("pic_bitmap",waterBitmap);
         startActivity(intent);
