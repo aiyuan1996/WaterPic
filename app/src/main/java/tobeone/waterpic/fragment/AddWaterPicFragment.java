@@ -36,17 +36,27 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.AddCompanyName;
 import tobeone.waterpic.activity.AddProjectName;
 import tobeone.waterpic.activity.BigPictureActivity;
 import tobeone.waterpic.activity.WaterMarkSettingActivity;
 import tobeone.waterpic.app.App;
+import tobeone.waterpic.entity.WaterInfoEntity;
 import tobeone.waterpic.entity.WatermarkInformationEntity;
+import tobeone.waterpic.utils.ImageUtil;
 import tobeone.waterpic.utils.ToastUtils;
 
 public class AddWaterPicFragment extends Fragment {
@@ -145,6 +155,14 @@ public class AddWaterPicFragment extends Fragment {
             }
         });
 
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToServer();
+            }
+        });
+
+
         LocationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,6 +223,56 @@ public class AddWaterPicFragment extends Fragment {
             }
         });
 
+    }
+    private void saveToServer(){
+        final WaterInfoEntity waterInfoEntity = new WaterInfoEntity();
+        waterInfoEntity.setProjectName(watermarkInformationEntity.getProjectName());
+        waterInfoEntity.setCompanyName(watermarkInformationEntity.getConpanyName());
+        waterInfoEntity.setCurrentTime(watermarkInformationEntity.getNowTime());
+        waterInfoEntity.setLocation(watermarkInformationEntity.getLocation());
+        ImageUtil imageUtil = new ImageUtil(PHOTO_IMAGE_FILE_NAME);
+        imageView.setDrawingCacheEnabled(true);
+        Bitmap waterbitmap=imageView.getDrawingCache();
+        final BmobFile bmobFile = new BmobFile(bitmapToFile(waterbitmap));
+        bmobFile.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e == null){
+                    waterInfoEntity.setPicture(bmobFile);
+                    waterInfoEntity.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if(e==null){
+                                ToastUtils.showShort(getActivity(),"添加数据成功，返回objectId为："+s);
+                            }else{
+                                ToastUtils.showShort(getActivity(),"创建数据失败：" + e.getMessage());
+                                Log.d(TAG, "---->>>" + e.getMessage());
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
+    /**
+     * Bitmap转File
+     */
+    public File bitmapToFile(Bitmap bitmap) {
+        File file = new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME);
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {
+                bos.flush();
+                bos.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 
     private void getLocation() {
