@@ -278,7 +278,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         Bitmap bmp = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bmp);
         // 画背景图
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.GREEN);
         canvas.drawBitmap(bitmap, 0, 0, null);
 
         Paint paint = new Paint();
@@ -345,7 +345,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         Bitmap bmp = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bmp);
         // 画背景图
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.GREEN);
         canvas.drawBitmap(bitmap, 0, 0, null);
         int screenWidth = getScreenWidth();
 
@@ -417,7 +417,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         Bitmap bmp = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bmp);
         // 画背景图
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.GREEN);
         canvas.drawBitmap(bitmap, 0, 0, null);
 
         Paint paint = new Paint();
@@ -484,7 +484,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         Bitmap bmp = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bmp);
         // 画背景图
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.GREEN);
         canvas.drawBitmap(bitmap, 0, 0, null);
 
         Paint paint = new Paint();
@@ -550,7 +550,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         Bitmap bmp = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bmp);
         // 画背景图
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.GREEN);
         canvas.drawBitmap(bitmap, 0, 0, null);
         Paint paint = new Paint();
         paint.setColor(background_color_code);

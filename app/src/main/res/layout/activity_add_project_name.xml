@@ -21,7 +21,8 @@
             android:layout_height="45dp"
             android:layout_gravity="center_vertical"
             android:padding="10dp"
-            android:src="@drawable/back" />
+            android:src="@drawable/back"
+            android:id="@+id/button_back"/>
 
         <EditText
             android:id="@+id/et_search"
@@ -32,11 +33,19 @@
             android:drawableLeft="@drawable/search"
             android:drawablePadding="8dp"
             android:gravity="start|center_vertical"
-            android:hint="请输入项目名称"
+            android:hint="请输入工程名称"
             android:imeOptions="actionSearch"
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
+        <ImageView
+
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:padding="0dp"
+            android:src="@drawable/ok"
+            android:id="@+id/button_ok"/>
 
     </LinearLayout>
 

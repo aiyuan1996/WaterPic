@@ -46,6 +46,32 @@ public class AddProjectName extends BaseActivity {
         setContentView(R.layout.activity_add_project_name);
 
         initView();
+
+
+        findViewById(R.id.button_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        findViewById(R.id.button_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 按完搜索键后将当前查询的关键字保存起来,如果该关键字已经存在就不执行保存
+                boolean hasData = hasData(et_search.getText().toString().trim());
+                if (!hasData) {
+                    insertData(et_search.getText().toString().trim());
+                    queryData("");
+                }
+                //跳转返回
+                Intent intent = new Intent();
+                intent.putExtra("data_project",et_search.getText().toString().trim());
+                setResult(1, intent);
+                finish();
+            }
+        });
+
+
         // 清空搜索历史
         tv_clear.setOnClickListener(new View.OnClickListener() {
             @Override
