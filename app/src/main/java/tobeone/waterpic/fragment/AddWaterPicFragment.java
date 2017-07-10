@@ -49,7 +49,7 @@ import tobeone.waterpic.app.App;
 import tobeone.waterpic.entity.WatermarkInformationEntity;
 import tobeone.waterpic.utils.ToastUtils;
 
-public class AddWaterPicFragment extends Fragment  {
+public class AddWaterPicFragment extends Fragment {
 
     public static final int ADD_PROJECT_NAME = 1;
     public static final int ADD_COMPANY_NAME = 2;
@@ -60,8 +60,9 @@ public class AddWaterPicFragment extends Fragment  {
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int IMAGE_REQUEST_CODE = 101;
     private static final int RESULT_REQUEST_CODE = 102;
-    private static final int REQUEST_BLUETOOTH_PERMISSION = 10;
+
     private static final int QEQUEST_BY_WATER_SETING = 300;
+    private static final int REQUEST_BLUETOOTH_PERMISSION = 10;
     private static final String TAG = "AddWaterFragment";
     private File tempFile = null;
 
@@ -79,6 +80,8 @@ public class AddWaterPicFragment extends Fragment  {
 
     private Button settingBtn;
     private Button saveBtn;
+
+    private Bitmap srcBitmap;
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -123,9 +126,7 @@ public class AddWaterPicFragment extends Fragment  {
                 }
                 else{
                     Intent intent = new Intent(getActivity(), WaterMarkSettingActivity.class);
-                    Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                    Bitmap bitmap1 = Bitmap.createBitmap(image);
-                    intent.putExtra("src_bitmap",bitmap1);
+                    intent.putExtra("src_bitmap",srcBitmap);
                     if (!addProjectNameText.getText().toString().trim().equals("")){
                         watermarkInformationEntity.setProjectName(addProjectNameText.getText().toString().trim());
                     }
@@ -137,8 +138,9 @@ public class AddWaterPicFragment extends Fragment  {
                          String s = sdf.format(date);
                         watermarkInformationEntity.setNowTime(s);
                     intent.putExtra("water_info",watermarkInformationEntity.toString());
-                    startActivityForResult(intent,QEQUEST_BY_WATER_SETING);
-                    startActivity(intent);
+                     startActivityForResult(intent,QEQUEST_BY_WATER_SETING);
+
+                    //startActivity(intent);
                 }
             }
         });
@@ -234,6 +236,7 @@ public class AddWaterPicFragment extends Fragment  {
         mLocationClient.startLocation();
 
     }
+
     private class MyAMapLocationListener implements AMapLocationListener {
 
         @Override
@@ -382,13 +385,12 @@ public class AddWaterPicFragment extends Fragment  {
                     }
                     break;
                 case QEQUEST_BY_WATER_SETING:
-                    if (resultCode == 0){
                         if (data != null) {
-                            Bitmap bitmap =data.getParcelableExtra("pic_bitmap");
+
+                            Bitmap bitmap =data.getParcelableExtra("r_pic_bitmap");
                             imageView.setImageBitmap(bitmap);
                             imageView.invalidate();
                         }
-                    }
                     break;
 
            // }
@@ -405,6 +407,7 @@ public class AddWaterPicFragment extends Fragment  {
         if (bundle != null) {
            Bitmap  bitmap = bundle.getParcelable("data");
             imageView.setImageBitmap(bitmap);
+            srcBitmap = bitmap;
             ToastUtils.showShort(getActivity(), "添加图片成功");
 
         }else {

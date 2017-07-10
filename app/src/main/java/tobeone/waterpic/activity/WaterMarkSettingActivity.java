@@ -266,8 +266,8 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent();
-        intent.putExtra("pic_bitmap", waterBitmap);
-        WaterMarkSettingActivity.this.setResult(RESULT_CANCELED,intent);
+        intent.putExtra("r_pic_bitmap", waterBitmap);
+        setResult(RESULT_CANCELED,intent);
         finish();
     }
 
