@@ -47,14 +47,11 @@ public class BigPictureActivity extends BaseActivity implements View.OnClickList
 //
         Intent intent = getIntent();
         if (intent != null){
-            Bitmap bitmap=intent.getParcelableExtra("pic_bitmap");
+            Bitmap bitmap =intent.getParcelableExtra("pic_bitmap");
             imageView.setImageBitmap(bitmap);
             imageView.invalidate();
         }
-
-
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){

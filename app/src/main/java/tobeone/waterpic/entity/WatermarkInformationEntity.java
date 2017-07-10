@@ -43,4 +43,11 @@ public class WatermarkInformationEntity implements Serializable {
     public String getLocation() {
         return "当前位置："+location;
     }
+
+    @Override
+    public String toString() {
+        return getProjectName() + "\n"
+                + getConpanyName() + "\n"
+                + getNowTime();
+    }
 }

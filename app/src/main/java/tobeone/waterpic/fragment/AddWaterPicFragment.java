@@ -138,17 +138,13 @@ public class AddWaterPicFragment extends Fragment  {
                     if (!addCompanyNameText.getText().toString().trim().equals("")){
                         watermarkInformationEntity.setConpanyName(addCompanyNameText.getText().toString().trim());
                     }
-                    if (!addTimeText.getText().toString().trim().equals("")){
-                        watermarkInformationEntity.setNowTime(addTimeText.getText().toString().trim());
-                    }
+                         Date date = new Date();
+                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                         String s = sdf.format(date);
+                        watermarkInformationEntity.setNowTime(s);
                     intent.putExtra("water_info",watermarkInformationEntity.toString());
-                    intent.putExtra("project_Name",watermarkInformationEntity.getProjectName());
-                    intent.putExtra("company_Name",watermarkInformationEntity.getConpanyName());
-                    intent.putExtra("current_time",watermarkInformationEntity.getNowTime());
                     startActivity(intent);
                 }
-
-
             }
         });
 

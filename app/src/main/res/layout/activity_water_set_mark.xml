@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="水印设置"/>
+        android:text="动画效果"
+        />
 
     <Switch
         android:id="@+id/three_d_animation_switch"
@@ -34,11 +35,25 @@
         android:layout_below="@id/three_d_animation_switch" />
 
     <TextView
-        android:id="@+id/duration_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|start"
+        android:layout_below="@id/duration_seek"
+        android:layout_marginTop="5dp"
+        android:text="字体大小设置"/>
+    <SeekBar
+        android:id="@+id/fonts_seek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_below="@id/duration_seek" />
+
+    <TextView
+        android:id="@+id/fonts_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|end"
-        android:layout_below="@id/duration_seek"
+        android:layout_below="@id/fonts_seek"
         />
 
     <com.nightonke.boommenu.BoomMenuButton
