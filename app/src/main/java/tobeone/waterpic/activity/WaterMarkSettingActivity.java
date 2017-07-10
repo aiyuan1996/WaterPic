@@ -16,7 +16,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -28,18 +27,11 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadFileListener;
 import tobeone.waterpic.R;
-import tobeone.waterpic.entity.WaterInfoEntity;
 import tobeone.waterpic.utils.BuilderManager;
-import tobeone.waterpic.utils.ImageUtil;
 import tobeone.waterpic.utils.OperationUtils;
-import static tobeone.waterpic.R.id.fonts_seek;
 
-import tobeone.waterpic.utils.ToastUtils;
+import static tobeone.waterpic.R.id.fonts_seek;
 
 
 /**
