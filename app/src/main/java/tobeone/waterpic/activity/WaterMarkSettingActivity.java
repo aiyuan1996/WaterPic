@@ -28,11 +28,19 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import tobeone.waterpic.R;
+import tobeone.waterpic.entity.WaterInfoEntity;
 import tobeone.waterpic.utils.BuilderManager;
+import tobeone.waterpic.utils.ImageUtil;
 import tobeone.waterpic.utils.OperationUtils;
-
 import static tobeone.waterpic.R.id.fonts_seek;
+
+import tobeone.waterpic.utils.ToastUtils;
+
 
 /**
 *
@@ -57,6 +65,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
     private int font_color_code = R.color.color_white;
     private int direction_code = 4;
     private OperationUtils operationUtils;
+    private static final String PHOTO_IMAGE_FILE_NAME = "fileImg.jpg";
     private static final String TAG = "WaterMarkSettingActivit";
 
     private Bitmap srcBitmap;
@@ -64,6 +73,7 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
     private Bitmap waterBitmap;
 
     private String watermarkInformation;
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +87,8 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
         if (intent != null) {
             watermarkInformation = intent.getStringExtra("water_info");
             srcBitmap = intent.getParcelableExtra("src_bitmap");
+            location = intent.getStringExtra("location");
+
         }
         getSupportActionBar().setTitle("水印设置");
 
@@ -252,9 +264,10 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
                 break;
 
         }
-        Intent intent = new Intent(WaterMarkSettingActivity.this, BigPictureActivity.class);
+
+        Intent intent = new Intent();
         intent.putExtra("pic_bitmap", waterBitmap);
-        startActivity(intent);
+        WaterMarkSettingActivity.this.setResult(RESULT_CANCELED,intent);
         finish();
     }
 
@@ -325,6 +338,36 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
 
         return bmp;
     }
+//    private void saveToServer(){
+//        final WaterInfoEntity waterInfoEntity = new WaterInfoEntity();
+//        waterInfoEntity.setProjectName(projectName);
+//        waterInfoEntity.setCompanyName(companyName);
+//        waterInfoEntity.setCurrentTime(currentTime);
+//        waterInfoEntity.setLocation(location);
+//        ImageUtil imageUtil = new ImageUtil(PHOTO_IMAGE_FILE_NAME);
+//        final BmobFile bmobFile = new BmobFile(imageUtil.bitmapToFile(waterBitmap));
+//        //waterInfoEntity.setPicture(bmobFile);
+//        bmobFile.uploadblock(new UploadFileListener() {
+//            @Override
+//            public void done(BmobException e) {
+//                if(e == null){
+//                    waterInfoEntity.setPicture(bmobFile);
+//                    waterInfoEntity.save(new SaveListener<String>() {
+//                        @Override
+//                        public void done(String s, BmobException e) {
+//                            if(e==null){
+//                                ToastUtils.showShort(WaterMarkSettingActivity.this,"添加数据成功，返回objectId为："+s);
+//                            }else{
+//                                ToastUtils.showShort(WaterMarkSettingActivity.this,"创建数据失败：" + e.getMessage());
+//                                Log.d(TAG, "---->>>" + e.getMessage());
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//
+//    }
 
     /**
      * 在左上角绘制水印

@@ -36,11 +36,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -53,9 +49,6 @@ import tobeone.waterpic.app.App;
 import tobeone.waterpic.entity.WatermarkInformationEntity;
 import tobeone.waterpic.utils.ToastUtils;
 
-/**
- * Created by 王特 on 2017/7/7.
- */
 public class AddWaterPicFragment extends Fragment  {
 
     public static final int ADD_PROJECT_NAME = 1;
@@ -68,6 +61,7 @@ public class AddWaterPicFragment extends Fragment  {
     private static final int IMAGE_REQUEST_CODE = 101;
     private static final int RESULT_REQUEST_CODE = 102;
     private static final int REQUEST_BLUETOOTH_PERMISSION = 10;
+    private static final int QEQUEST_BY_WATER_SETING = 300;
     private static final String TAG = "AddWaterFragment";
     private File tempFile = null;
 
@@ -143,6 +137,7 @@ public class AddWaterPicFragment extends Fragment  {
                          String s = sdf.format(date);
                         watermarkInformationEntity.setNowTime(s);
                     intent.putExtra("water_info",watermarkInformationEntity.toString());
+                    startActivityForResult(intent,QEQUEST_BY_WATER_SETING);
                     startActivity(intent);
                 }
             }
@@ -316,10 +311,8 @@ public class AddWaterPicFragment extends Fragment  {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE))
                     ToastUtils.showShort(getActivity(),"Need write external storage permission.");
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_BLUETOOTH_PERMISSION);
-                return;
-            } else {
+
             }
-        } else {
         }
     }
 
@@ -388,6 +381,15 @@ public class AddWaterPicFragment extends Fragment  {
                         setImageToView(data);
                     }
                     break;
+                case QEQUEST_BY_WATER_SETING:
+                    if (resultCode == 0){
+                        if (data != null) {
+                            Bitmap bitmap =data.getParcelableExtra("pic_bitmap");
+                            imageView.setImageBitmap(bitmap);
+                            imageView.invalidate();
+                        }
+                    }
+                    break;
 
            // }
 
@@ -409,24 +411,4 @@ public class AddWaterPicFragment extends Fragment  {
             ToastUtils.showShort(getActivity(), "添加图片失败");
         }
     }
-
-    /**
-     * Bitmap转File
-     */
-    public File bitmapToFile(Bitmap bitmap) {
-        tempFile = new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME);
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(tempFile));
-            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {
-                bos.flush();
-                bos.close();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return tempFile;
-    }
-
 }

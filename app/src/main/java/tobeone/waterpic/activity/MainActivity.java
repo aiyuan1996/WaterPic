@@ -30,11 +30,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -43,10 +39,11 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
-import tobeone.waterpic.utils.PermissionListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
+import tobeone.waterpic.utils.ImageUtil;
+import tobeone.waterpic.utils.PermissionListener;
 import tobeone.waterpic.utils.ToastUtils;
 
 
@@ -341,11 +338,12 @@ public class MainActivity extends BaseActivity
      * 设置icon并上传服务器
      * @param data
      */
-    private void setImageToView(Intent data) {
+    public void setImageToView(Intent data) {
         Bundle bundle = data.getExtras();
         if (bundle != null) {
             final Bitmap bitmap = bundle.getParcelable("data");
-            final BmobFile bmobFile = new BmobFile(bitmapToFile(bitmap));
+            ImageUtil imageUtil = new ImageUtil(PHOTO_IMAGE_FILE_NAME);
+            final BmobFile bmobFile = new BmobFile(imageUtil.bitmapToFile(bitmap));
 
             bmobFile.uploadblock(new UploadFileListener() {
                 @Override
@@ -384,23 +382,7 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    /**
-     * Bitmap转File
-     */
-    public File bitmapToFile(Bitmap bitmap) {
-        tempFile = new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME);
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(tempFile));
-            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {
-                bos.flush();
-                bos.close();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return tempFile;
-    }
+
+
 
 }
