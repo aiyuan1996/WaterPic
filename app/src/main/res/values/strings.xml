@@ -62,4 +62,5 @@
     <string name="text_ham_button_sub_text_highlighted">Ham Button Sub Text(Highlighted)</string>
     <string name="text_ham_button_sub_text_unable">Ham Button Sub Text(Unable)</string>
     <string name="title_activity_new">NewActivity</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
 </resources>

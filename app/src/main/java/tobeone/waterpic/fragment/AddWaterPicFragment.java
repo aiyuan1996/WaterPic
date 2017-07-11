@@ -249,6 +249,7 @@ public class AddWaterPicFragment extends Fragment {
         File file = bitmapToFile(waterbitmap);
         localWaterInfo.setPictureUri(file.getPath());
         ToastUtils.showShort(getActivity(),"水印图片保存在：" + file.getPath());
+        localWaterInfo.save();
     }
     private void saveToServer(){
         final WaterInfoEntity waterInfoEntity = new WaterInfoEntity();
@@ -290,7 +291,6 @@ public class AddWaterPicFragment extends Fragment {
         if (!tempfile.exists()) {
                 tempfile.mkdir();
                 }
-
         File file = new File(filePath, "Water"+addProjectNameText.getText().toString().trim() + System.currentTimeMillis() + PHOTO_IMAGE_FILE_NAME);
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));

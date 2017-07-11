@@ -1,12 +1,16 @@
 package tobeone.waterpic.entity.Local;
 
+import org.litepal.crud.DataSupport;
+
+import java.io.Serializable;
+
 import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by 王特 on 2017/7/11.
  */
 
-public class LocalWaterInfo {
+public class LocalWaterInfo extends DataSupport implements Serializable {
 
     private String projectName;
     private String companyName;

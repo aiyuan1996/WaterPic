@@ -2,6 +2,8 @@ package tobeone.waterpic.app;
 
 import android.app.Application;
 
+import org.litepal.LitePal;
+
 import butterknife.ButterKnife;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
@@ -40,6 +42,8 @@ public class App extends Application {
                     .build();
             Bmob.initialize(config);
         }
+       //初始化LitePal
+        LitePal.initialize(this);
     }
 
 }

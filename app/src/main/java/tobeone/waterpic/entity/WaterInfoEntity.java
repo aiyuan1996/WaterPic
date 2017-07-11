@@ -13,6 +13,7 @@ public class WaterInfoEntity extends BmobObject{
     private String username;
     private BmobFile picture;
 
+
     public void setUsername(String username) {
         this.username = username;
     }
