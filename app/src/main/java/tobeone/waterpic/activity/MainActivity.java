@@ -42,6 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
+import tobeone.waterpic.fragment.WaterLocalFragment;
 import tobeone.waterpic.utils.ImageUtil;
 import tobeone.waterpic.utils.PermissionListener;
 import tobeone.waterpic.utils.ToastUtils;
@@ -53,6 +54,12 @@ public class MainActivity extends BaseActivity
 
 
     private AddWaterPicFragment addWaterPicFragment;
+    private WaterLocalFragment waterLocalFragment;
+
+    private  DrawerLayout drawer;
+
+
+
     private CircleImageView userImage;
     private TextView tel;
     private android.support.v7.app.AlertDialog photoDialog;
@@ -72,7 +79,7 @@ public class MainActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -148,36 +155,36 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_take_photo) {
-            // Handle the camera action
-            Toast.makeText(this, "Hello！", Toast.LENGTH_SHORT).show();
-
-        } else if (id == R.id.nav_add_watermark) {
-
-            initAddWaterPic();
-
-        } else if (id == R.id.nav_view_album) {
-
-        } else if (id == R.id.nav_setting) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (item.getItemId()){
+            case R.id.nav_take_photo:
+                break;
+            case R.id.nav_add_watermark:
+                initAddWaterPic();
+                break;
+            case R.id.nav_view_album:
+                initWaterLocalfragment();
+                break;
+            case R.id.nav_setting:
+                break;
+            case R.id.nav_share:
+                break;
+            case R.id.nav_send:
+                break;
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
     private void hideFragment(FragmentTransaction transaction){
 
-        if (addWaterPicFragment != null) {
+        if (addWaterPicFragment != null){
             transaction.hide(addWaterPicFragment);
         }
+        if (waterLocalFragment != null) {
+            transaction.hide(waterLocalFragment);
+        }
+
+
     }
 
     private void initAddWaterPic() {
@@ -192,6 +199,20 @@ public class MainActivity extends BaseActivity
         hideFragment(transaction);
         //显示需要显示的fragment
         transaction.show(addWaterPicFragment);
+        transaction.commit();
+    }
+    private void initWaterLocalfragment() {
+
+        getSupportActionBar().setTitle("本地水印相册");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (waterLocalFragment == null) {
+            waterLocalFragment = new WaterLocalFragment();
+            transaction.add(R.id.content_main, waterLocalFragment);
+        }
+        //隐藏所有fragment
+        hideFragment(transaction);
+        //显示需要显示的fragment
+        transaction.show(waterLocalFragment);
         transaction.commit();
     }
 
@@ -232,7 +253,7 @@ public class MainActivity extends BaseActivity
         photoDialog.findViewById(R.id.btn_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toCamera();
+                toCameraAvatar();
             }
         });
         photoDialog.findViewById(R.id.btn_picture).setOnClickListener(new View.OnClickListener() {
@@ -251,9 +272,9 @@ public class MainActivity extends BaseActivity
 
 
     /**
-     * 跳转相机
+     * 跳转相机去拍头像
      */
-    private void toCamera() {
+    private void toCameraAvatar() {
         RequestPermission(new String[]{ Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
             @Override
             public void onGranted() {

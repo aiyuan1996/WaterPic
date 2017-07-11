@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import tobeone.waterpic.R;
 import tobeone.waterpic.activity.GalleryActivity;
 import tobeone.waterpic.adapter.SpecialGridAdapter;
 import tobeone.waterpic.entity.Local.LocalWaterInfo;
+import tobeone.waterpic.utils.ToastUtils;
 
 
 /**
@@ -42,7 +44,10 @@ public class WaterLocalFragment extends Fragment {
 
     private void initView(View v) {
         mGridView = (GridView) v.findViewById(R.id.mGridView);
+
         mList = DataSupport.findAll(LocalWaterInfo.class);
+        Log.d("LocalWater",mList.get(0).getCompanyName());
+       ToastUtils.showShort(getActivity(),"打开本地相册");
 
         mSpecialGridAdapter = new SpecialGridAdapter(getActivity(),mList);
         mGridView.setAdapter(mSpecialGridAdapter);

@@ -65,7 +65,7 @@ public class SpecialGridAdapter extends BaseAdapter{
         model = mList.get(i);
         GlideUtils.loadImageCrop(mContext, model.getPictureUri(), viewHolder.iv_main_grid_icon);
         viewHolder.tv_main_grid_project.setText(model.getProjectName() + "");
-        return null;
+        return view;
     }
 
     class ViewHolder {
