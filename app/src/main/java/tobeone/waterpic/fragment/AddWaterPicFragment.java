@@ -164,6 +164,9 @@ public class AddWaterPicFragment extends Fragment {
                          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                          String s = sdf.format(date);
                         watermarkInformationEntity.setNowTime(s);
+                    if(!addLocationText.getText().toString().trim().equals("")){
+                        watermarkInformationEntity.setLocation(addLocationText.getText().toString().trim());
+                    }
                     intent.putExtra("water_info",watermarkInformationEntity.toString());
                      startActivityForResult(intent,QEQUEST_BY_WATER_SETING);
 
