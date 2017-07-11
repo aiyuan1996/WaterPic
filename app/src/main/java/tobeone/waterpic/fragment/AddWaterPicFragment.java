@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -46,6 +47,7 @@ import java.util.Date;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.ProgressCallback;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import tobeone.waterpic.R;
@@ -54,6 +56,7 @@ import tobeone.waterpic.activity.AddProjectName;
 import tobeone.waterpic.activity.BigPictureActivity;
 import tobeone.waterpic.activity.WaterMarkSettingActivity;
 import tobeone.waterpic.app.App;
+import tobeone.waterpic.entity.Local.LocalWaterInfo;
 import tobeone.waterpic.entity.WaterInfoEntity;
 import tobeone.waterpic.entity.WatermarkInformationEntity;
 import tobeone.waterpic.utils.ImageUtil;
@@ -66,7 +69,7 @@ public class AddWaterPicFragment extends Fragment {
     private  View totalView;
 
     private android.support.v7.app.AlertDialog photoDialog;
-    private static final String PHOTO_IMAGE_FILE_NAME = "WaterPic.jpg";
+    private static final String PHOTO_IMAGE_FILE_NAME = "pic.jpg";
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int IMAGE_REQUEST_CODE = 101;
     private static final int RESULT_REQUEST_CODE = 102;
@@ -90,6 +93,7 @@ public class AddWaterPicFragment extends Fragment {
 
     private Button settingBtn;
     private Button saveBtn;
+    private Button saveToServer;
 
     private Bitmap srcBitmap;
 
@@ -128,6 +132,8 @@ public class AddWaterPicFragment extends Fragment {
         settingBtn = (Button) view.findViewById(R.id.btn_setting);
         saveBtn = (Button) view.findViewById(R.id.btn_save);
 
+        saveToServer = (Button) view.findViewById(R.id.btn_save_cloud);
+
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +162,13 @@ public class AddWaterPicFragment extends Fragment {
         });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToLocalhost();
+            }
+        });
+
+        saveToServer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveToServer();
@@ -224,15 +237,27 @@ public class AddWaterPicFragment extends Fragment {
         });
 
     }
+
+    private void saveToLocalhost() {
+         LocalWaterInfo localWaterInfo = new LocalWaterInfo();
+        localWaterInfo.setProjectName(watermarkInformationEntity.getProjectName());
+        localWaterInfo.setCompanyName(watermarkInformationEntity.getConpanyName());
+        localWaterInfo.setCurrentTime(watermarkInformationEntity.getNowTime());
+        localWaterInfo.setLocation(watermarkInformationEntity.getLocation());
+        imageView.setDrawingCacheEnabled(true);
+        Bitmap waterbitmap=imageView.getDrawingCache();
+        File file = bitmapToFile(waterbitmap);
+        localWaterInfo.setPictureUri(file.getPath());
+        ToastUtils.showShort(getActivity(),"水印图片保存在：" + file.getPath());
+    }
     private void saveToServer(){
         final WaterInfoEntity waterInfoEntity = new WaterInfoEntity();
         waterInfoEntity.setProjectName(watermarkInformationEntity.getProjectName());
         waterInfoEntity.setCompanyName(watermarkInformationEntity.getConpanyName());
         waterInfoEntity.setCurrentTime(watermarkInformationEntity.getNowTime());
         waterInfoEntity.setLocation(watermarkInformationEntity.getLocation());
-        ImageUtil imageUtil = new ImageUtil(PHOTO_IMAGE_FILE_NAME);
         imageView.setDrawingCacheEnabled(true);
-        Bitmap waterbitmap=imageView.getDrawingCache();
+        final Bitmap waterbitmap=imageView.getDrawingCache();
         final BmobFile bmobFile = new BmobFile(bitmapToFile(waterbitmap));
         bmobFile.uploadblock(new UploadFileListener() {
             @Override
@@ -260,7 +285,13 @@ public class AddWaterPicFragment extends Fragment {
      * Bitmap转File
      */
     public File bitmapToFile(Bitmap bitmap) {
-        File file = new File(Environment.getExternalStorageDirectory(), PHOTO_IMAGE_FILE_NAME);
+        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/WaterMark";
+        File tempfile = new File(filePath);
+        if (!tempfile.exists()) {
+                tempfile.mkdir();
+                }
+
+        File file = new File(filePath, "Water"+addProjectNameText.getText().toString().trim() + System.currentTimeMillis() + PHOTO_IMAGE_FILE_NAME);
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {
