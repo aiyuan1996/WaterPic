@@ -31,7 +31,6 @@ public class WaterFragment extends Fragment {
     private void initView(View v) {
         mGridView = (GridView) v.findViewById(R.id.mGridView);
 
-
     }
 
 }
