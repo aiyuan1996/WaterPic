@@ -1,13 +1,19 @@
 package tobeone.waterpic.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Created by 王特 on 2017/7/10.
@@ -39,6 +45,8 @@ public class ImageUtil  {
         }
         return file;
     }
+
+
 
 
 }
