@@ -42,7 +42,6 @@ import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
 import tobeone.waterpic.fragment.LocationMapFragment;
-import tobeone.waterpic.fragment.UserManageFragment;
 import tobeone.waterpic.fragment.WaterLocalFragment;
 import tobeone.waterpic.fragment.WaterServerFragment;
 import tobeone.waterpic.utils.ImageUtil;
@@ -58,7 +57,6 @@ public class MainActivity extends BaseActivity
     private AddWaterPicFragment addWaterPicFragment;
     private WaterLocalFragment waterLocalFragment;
     private WaterServerFragment waterServerFragment;
-    private UserManageFragment userManageFragment;
 
     private LocationMapFragment locationMapFragment;
 
@@ -96,8 +94,7 @@ public class MainActivity extends BaseActivity
 
         View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         userImage = (CircleImageView)navHeaderView.findViewById(R.id.profile_image);
-        //String telString = getIntent().getStringExtra("tel");
-        String telString = BmobUser.getCurrentUser().getUsername();
+        String telString = getIntent().getStringExtra("tel");
         tel = (TextView)navHeaderView.findViewById(R.id.telnumber);
         tel.setText(telString);
         userImage.setOnClickListener(new View.OnClickListener() {
@@ -175,11 +172,7 @@ public class MainActivity extends BaseActivity
                 Intent intent = new Intent(MainActivity.this,WeatherMainActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_user_manage:
-                initUserManageFragment();
-                break;
             case R.id.nav_share:
-                initUserManageFragment();
                 break;
             case R.id.nav_send:
                 initLocationMap();
@@ -189,27 +182,13 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-    private void initUserManageFragment(){
-        getSupportActionBar().setTitle("用户管理");
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (userManageFragment == null) {
-            userManageFragment = new UserManageFragment();
-            transaction.add(R.id.content_main, userManageFragment);
-        }
-        //隐藏所有fragment
-        hideFragment(transaction);
-        //显示需要显示的fragment
-        transaction.show(userManageFragment);
-        transaction.commit();
-    }
-
     private void initLocationMap() {
         getSupportActionBar().setTitle("附近地图");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (addWaterPicFragment == null) {
+        if (locationMapFragment == null) {
         locationMapFragment = new LocationMapFragment();
         transaction.add(R.id.content_main, locationMapFragment);
-//        }
+        }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment
@@ -233,9 +212,6 @@ public class MainActivity extends BaseActivity
         if (locationMapFragment != null){
             transaction.hide(locationMapFragment);
         }
-        if(userManageFragment != null){
-            transaction.hide(userManageFragment);
-        }
 
 
     }
@@ -247,7 +223,7 @@ public class MainActivity extends BaseActivity
 //        if (addWaterPicFragment == null) {
               addWaterPicFragment = new AddWaterPicFragment();
             transaction.add(R.id.content_main, addWaterPicFragment);
-//        }
+//       }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment
@@ -273,10 +249,10 @@ public class MainActivity extends BaseActivity
 
         getSupportActionBar().setTitle("本地水印相册");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (waterLocalFragment == null) {
+        if (waterLocalFragment == null) {
             waterLocalFragment = new WaterLocalFragment();
             transaction.add(R.id.content_main, waterLocalFragment);
-//        }
+        }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment
