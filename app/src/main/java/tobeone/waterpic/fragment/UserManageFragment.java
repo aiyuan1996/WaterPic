@@ -11,9 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import cn.bmob.v3.BmobUser;
 import tobeone.waterpic.R;
 import tobeone.waterpic.activity.ChangePasswordActivity;
 import tobeone.waterpic.activity.LoginActivity;
+import tobeone.waterpic.utils.ActivityCollector;
 
 /**
  * Created by aiyuan on 2017/7/12.
@@ -43,8 +45,10 @@ public class UserManageFragment extends Fragment{
                     intent = new Intent(getActivity(),ChangePasswordActivity.class);
                     startActivity(intent);
                 }else if (position == 1){
+                    BmobUser.logOut();
                     intent = new Intent(getActivity(),LoginActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
