@@ -4,7 +4,7 @@ package tobeone.waterpic.utils;
  *  包名：    com.liuguilin.lovewallpaper.utils
  *  文件名:   GlideUtils
  *  创建者:   LGL
- *  创建时间:  2017/1/10 11:15
+ *  创建时间:  2017/skin_5/10 11:15
  *  描述：    Glide封装
  */
 

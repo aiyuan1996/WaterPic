@@ -20,8 +20,8 @@
             android:title="用户管理" />
         <item
             android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="设置" />
+            android:icon="@drawable/ic_skin"
+            android:title="皮肤设置" />
     </group>
 
     <item android:title="小工具">

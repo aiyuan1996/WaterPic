@@ -489,7 +489,7 @@ public class AddWaterPicFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //if (resultCode == 1){
+        //if (resultCode == skin_5){
             switch (requestCode)
             {
                 case ADD_PROJECT_NAME:

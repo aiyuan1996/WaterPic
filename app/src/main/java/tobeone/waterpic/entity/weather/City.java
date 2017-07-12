@@ -3,7 +3,7 @@ package tobeone.waterpic.entity.weather;
 import org.litepal.crud.DataSupport;
 
 /**
- * Created by aiyuan on 2017/1/23.
+ * Created by aiyuan on 2017/skin_5/23.
  */
 
 public class City extends DataSupport {

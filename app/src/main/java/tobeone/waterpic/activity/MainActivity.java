@@ -175,7 +175,7 @@ public class MainActivity extends BaseActivity
                 initWaterLocalfragment();
                 break;
             case R.id.nav_setting:
-                nav_layout.setBackgroundResource(R.drawable.pugongying);
+                showSimpleListDialog();
                 break;
             case R.id.nav_user_manage:
                 initUserManageFragment();
@@ -190,6 +190,29 @@ public class MainActivity extends BaseActivity
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showSimpleListDialog() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.skin);
+        builder.setTitle("皮肤选择");
+
+        /**
+         * 设置内容区域为简单列表项
+         */
+        final int[] skins={R.drawable.skin_1,R.drawable.skin_2,R.drawable.skin_3,
+                R.drawable.skin_4,R.drawable.skin_5,R.drawable.skin_6};
+        final String[] items={"意境型皮肤","浪漫型皮肤","风景型皮肤","励志型皮肤","奋斗型皮肤","小清新型皮肤"};
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ToastUtils.showShort(MainActivity.this,"您设置的皮肤类型为" + items[i]);
+                nav_layout.setBackgroundResource(skins[i]);
+            }
+        });
+        builder.setCancelable(true);
+        AlertDialog dialog=builder.create();
+        dialog.show();
     }
 
     private void initUserManageFragment(){

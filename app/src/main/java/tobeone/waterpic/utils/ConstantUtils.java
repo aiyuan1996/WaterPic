@@ -2,7 +2,7 @@ package tobeone.waterpic.utils;
 
 /**
  * 常量工具类
- * Created by gc on 2017/1/17.
+ * Created by gc on 2017/skin_5/17.
  */
 public class ConstantUtils {
     //RESULT

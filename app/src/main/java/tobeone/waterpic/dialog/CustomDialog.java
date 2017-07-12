@@ -10,7 +10,7 @@ import tobeone.waterpic.R;
 
 /**
  * 自定义Dialog 加载中
- * Created by gc on 2017/1/16.
+ * Created by gc on 2017/skin_5/16.
  */
 public class CustomDialog extends Dialog {
     /**
