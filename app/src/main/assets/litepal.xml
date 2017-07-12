@@ -5,14 +5,11 @@
     <version value="1" />
 
     <list>
-        <mapping class="tobeone.waterpic.entity.Local.LocalWaterInfo" />
-        <mapping class = "aiyuan1996.cn.weather.db.Province"/>
-        <mapping class = "aiyuan1996.cn.weather.db.City"/>
-        <mapping class = "aiyuan1996.cn.weather.db.County"/>
+        <mapping class ="tobeone.waterpic.entity.Local.LocalWaterInfo" />
+        <mapping class = "tobeone.waterpic.entity.weather.City"/>
+        <mapping class = "tobeone.waterpic.entity.weather.County"/>
+        <mapping class = "tobeone.waterpic.entity.weather.Province"/>
     </list>
 
-    <!--
-        <storage value="external" />
-      -->
 
     </litepal>
