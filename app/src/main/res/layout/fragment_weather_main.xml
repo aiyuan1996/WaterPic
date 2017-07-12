@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tobeone.waterpic.fragment.WeatherMainFragment">
+
+    <fragment
+        android:id="@+id/choose_area_fragment"
+        android:name="aiyuan1996.cn.weather.ChooseAreaFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

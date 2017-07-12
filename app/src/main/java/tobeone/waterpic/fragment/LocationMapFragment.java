@@ -30,7 +30,9 @@ import tobeone.waterpic.R;
 
 import static cn.bmob.v3.Bmob.getApplicationContext;
 
-
+/**
+ * Created by 王特 on 2017/7/12.
+ */
 public class LocationMapFragment extends Fragment implements  LocationSource, AMapLocationListener {
 
     //显示地图需要的变量
