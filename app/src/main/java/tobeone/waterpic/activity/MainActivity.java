@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.List;
+
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -68,6 +70,7 @@ public class MainActivity extends BaseActivity
 
     private CircleImageView userImage;
     private TextView tel;
+    private LinearLayout nav_layout;
     private android.support.v7.app.AlertDialog photoDialog;
     private static final String PHOTO_IMAGE_FILE_NAME = "fileImg.jpg";
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -95,8 +98,8 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        nav_layout = (LinearLayout) navHeaderView.findViewById(R.id.nav_layout);
         userImage = (CircleImageView)navHeaderView.findViewById(R.id.profile_image);
-        //String telString = getIntent().getStringExtra("tel");
         String telString = BmobUser.getCurrentUser().getUsername();
         tel = (TextView)navHeaderView.findViewById(R.id.telnumber);
         tel.setText(telString);
@@ -172,16 +175,16 @@ public class MainActivity extends BaseActivity
                 initWaterLocalfragment();
                 break;
             case R.id.nav_setting:
-                Intent intent = new Intent(MainActivity.this,WeatherMainActivity.class);
-                startActivity(intent);
+                nav_layout.setBackgroundResource(R.drawable.pugongying);
                 break;
             case R.id.nav_user_manage:
                 initUserManageFragment();
                 break;
-            case R.id.nav_share:
-                initUserManageFragment();
+            case R.id.nav_weather:
+                Intent intent = new Intent(MainActivity.this,WeatherMainActivity.class);
+                startActivity(intent);
                 break;
-            case R.id.nav_send:
+            case R.id.nav_map:
                 initLocationMap();
                 break;
         }
@@ -206,10 +209,10 @@ public class MainActivity extends BaseActivity
     private void initLocationMap() {
         getSupportActionBar().setTitle("附近地图");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (addWaterPicFragment == null) {
+        if (locationMapFragment == null) {
         locationMapFragment = new LocationMapFragment();
         transaction.add(R.id.content_main, locationMapFragment);
-//        }
+        }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment
@@ -244,10 +247,10 @@ public class MainActivity extends BaseActivity
 
         getSupportActionBar().setTitle("添加水印");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (addWaterPicFragment == null) {
+        if (addWaterPicFragment == null) {
               addWaterPicFragment = new AddWaterPicFragment();
             transaction.add(R.id.content_main, addWaterPicFragment);
-//        }
+        }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment
@@ -273,10 +276,10 @@ public class MainActivity extends BaseActivity
 
         getSupportActionBar().setTitle("本地水印相册");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (waterLocalFragment == null) {
+        if (waterLocalFragment == null) {
             waterLocalFragment = new WaterLocalFragment();
             transaction.add(R.id.content_main, waterLocalFragment);
-//        }
+        }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment
