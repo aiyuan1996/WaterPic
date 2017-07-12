@@ -86,7 +86,7 @@ public class WaterLocalFragment extends Fragment {
                                break;
                            case 1:
                                File tempfile = new File(mList.get(i).getPictureUri());
-                               if (tempfile.exists()) {
+                               if (tempfile.isFile() && tempfile.exists()) {
                                    tempfile.delete();
                                    ToastUtils.showShort(getActivity(),"删除图片成功！");
                                }else{

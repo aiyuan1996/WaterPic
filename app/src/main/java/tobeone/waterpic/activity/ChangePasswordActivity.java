@@ -36,7 +36,7 @@ public class ChangePasswordActivity extends BaseActivity {
 
     @OnClick(R.id.btn_change_password)
     public void onChangePassword(View view) {
-        // 1.获取输入框的值
+        // skin_5.获取输入框的值
         String now = mNowPass.getText().toString().trim();
         String news = mNewPass.getText().toString().trim();
         String newPassword = mNewPassword.getText().toString();

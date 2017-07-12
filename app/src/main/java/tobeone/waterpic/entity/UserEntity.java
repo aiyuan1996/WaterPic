@@ -4,7 +4,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 
 /**
- * Created by gc on 2017/1/18.
+ * Created by gc on 2017/skin_5/18.
  */
 public class UserEntity extends BmobUser {
 

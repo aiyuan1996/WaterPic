@@ -261,11 +261,14 @@ public class AddWaterPicFragment extends Fragment {
 
     // 分享照片
     private void SharePhoto(String photoUri) {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        File file = new File(photoUri);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-        shareIntent.setType("image/jpeg");
-        startActivity(shareIntent);
+        if (photoUri !=null){
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            File file = new File(photoUri);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            shareIntent.setType("image/jpeg");
+            startActivity(shareIntent);
+        }
+
     }
 
     private void saveToLocalhost() {
@@ -489,7 +492,7 @@ public class AddWaterPicFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //if (resultCode == 1){
+        //if (resultCode == skin_5){
             switch (requestCode)
             {
                 case ADD_PROJECT_NAME:

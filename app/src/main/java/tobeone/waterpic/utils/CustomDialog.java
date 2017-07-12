@@ -11,7 +11,7 @@ import tobeone.waterpic.R;
 /**
 * 自定义对话框
 * @author aiyuan
-*create at 2017/7/8 1:33
+*create at 2017/7/8 skin_5:33
 */
 public class CustomDialog extends Dialog {
     /**

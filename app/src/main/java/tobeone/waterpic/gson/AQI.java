@@ -1,7 +1,7 @@
 package tobeone.waterpic.gson;
 
 /**
- * Created by aiyuan on 2017/1/25.
+ * Created by aiyuan on 2017/skin_5/25.
  */
 
 public class AQI {

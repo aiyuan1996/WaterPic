@@ -48,12 +48,12 @@
             android:layout_weight="1"
             android:src="@drawable/preview_share"/>
 
-        <ImageView
-            android:id="@+id/iv_preview_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/preview_down"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_preview_down"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/preview_down"/>-->
 
     </LinearLayout>
 </RelativeLayout>

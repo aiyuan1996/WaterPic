@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.List;
+
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -42,6 +44,7 @@ import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
 import tobeone.waterpic.fragment.LocationMapFragment;
+import tobeone.waterpic.fragment.UserManageFragment;
 import tobeone.waterpic.fragment.WaterLocalFragment;
 import tobeone.waterpic.fragment.WaterServerFragment;
 import tobeone.waterpic.utils.ImageUtil;
@@ -57,6 +60,7 @@ public class MainActivity extends BaseActivity
     private AddWaterPicFragment addWaterPicFragment;
     private WaterLocalFragment waterLocalFragment;
     private WaterServerFragment waterServerFragment;
+    private UserManageFragment userManageFragment;
 
     private LocationMapFragment locationMapFragment;
 
@@ -66,6 +70,7 @@ public class MainActivity extends BaseActivity
 
     private CircleImageView userImage;
     private TextView tel;
+    private LinearLayout nav_layout;
     private android.support.v7.app.AlertDialog photoDialog;
     private static final String PHOTO_IMAGE_FILE_NAME = "fileImg.jpg";
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -93,8 +98,9 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        nav_layout = (LinearLayout) navHeaderView.findViewById(R.id.nav_layout);
         userImage = (CircleImageView)navHeaderView.findViewById(R.id.profile_image);
-        String telString = getIntent().getStringExtra("tel");
+        String telString = BmobUser.getCurrentUser().getUsername();
         tel = (TextView)navHeaderView.findViewById(R.id.telnumber);
         tel.setText(telString);
         userImage.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +153,7 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
+            initUserManageFragment();
             return true;
         }
 
@@ -169,17 +175,58 @@ public class MainActivity extends BaseActivity
                 initWaterLocalfragment();
                 break;
             case R.id.nav_setting:
+                showSimpleListDialog();
+                break;
+            case R.id.nav_user_manage:
+                initUserManageFragment();
+                break;
+            case R.id.nav_weather:
                 Intent intent = new Intent(MainActivity.this,WeatherMainActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_share:
-                break;
-            case R.id.nav_send:
+            case R.id.nav_map:
                 initLocationMap();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showSimpleListDialog() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.skin);
+        builder.setTitle("皮肤选择");
+
+        /**
+         * 设置内容区域为简单列表项
+         */
+        final int[] skins={R.drawable.skin_1,R.drawable.skin_2,R.drawable.skin_3,
+                R.drawable.skin_4,R.drawable.skin_5,R.drawable.skin_6};
+        final String[] items={"意境型皮肤","浪漫型皮肤","风景型皮肤","励志型皮肤","奋斗型皮肤","小清新型皮肤"};
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ToastUtils.showShort(MainActivity.this,"您设置的皮肤类型为" + items[i]);
+                nav_layout.setBackgroundResource(skins[i]);
+            }
+        });
+        builder.setCancelable(true);
+        AlertDialog dialog=builder.create();
+        dialog.show();
+    }
+
+    private void initUserManageFragment(){
+        getSupportActionBar().setTitle("用户管理");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (userManageFragment == null) {
+            userManageFragment = new UserManageFragment();
+            transaction.add(R.id.content_main, userManageFragment);
+        }
+        //隐藏所有fragment
+        hideFragment(transaction);
+        //显示需要显示的fragment
+        transaction.show(userManageFragment);
+        transaction.commit();
     }
 
     private void initLocationMap() {
@@ -212,6 +259,9 @@ public class MainActivity extends BaseActivity
         if (locationMapFragment != null){
             transaction.hide(locationMapFragment);
         }
+        if(userManageFragment != null){
+            transaction.hide(userManageFragment);
+        }
 
 
     }
@@ -220,10 +270,10 @@ public class MainActivity extends BaseActivity
 
         getSupportActionBar().setTitle("添加水印");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (addWaterPicFragment == null) {
+    //    if (addWaterPicFragment == null) {
               addWaterPicFragment = new AddWaterPicFragment();
             transaction.add(R.id.content_main, addWaterPicFragment);
-//       }
+   //     }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment

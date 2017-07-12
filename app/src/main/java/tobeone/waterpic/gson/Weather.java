@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by aiyuan on 2017/1/25.
+ * Created by aiyuan on 2017/skin_5/25.
  */
 
 public class Weather {

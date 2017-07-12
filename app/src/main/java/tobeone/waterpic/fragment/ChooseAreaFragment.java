@@ -34,7 +34,7 @@ import tobeone.waterpic.utils.HttpUtil;
 import tobeone.waterpic.utils.Utility;
 
 /**
- * Created by aiyuan on 2017/1/23.
+ * Created by aiyuan on 2017/skin_5/23.
  */
 
 public class ChooseAreaFragment extends Fragment {
