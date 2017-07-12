@@ -6,6 +6,9 @@
         <item>删除</item>
         <item>上传到云端</item>
     </array>
+    <array name="Array">
+        <item>下载到本地</item>
+    </array>
 
 
 </resources>

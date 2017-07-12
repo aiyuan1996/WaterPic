@@ -51,7 +51,7 @@ public class ImageAdapter extends BaseAdapter{
         ImageView iv = new ImageView(mContext);
         GlideUtils.loadImageView(mContext,mlist.get(position).getPicture().getFileUrl(),iv);
         iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        iv.setLayoutParams(new Gallery.LayoutParams(300, 300));
+        //iv.setLayoutParams(new Gallery.LayoutParams(300, 300));
         return iv;
     }
 

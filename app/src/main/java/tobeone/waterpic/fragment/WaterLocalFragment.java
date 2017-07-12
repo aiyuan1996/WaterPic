@@ -102,7 +102,7 @@ public class WaterLocalFragment extends Fragment {
                    }
                 }).show();
 
-                   return false;
+                   return true;
                }
            });
         }else{
