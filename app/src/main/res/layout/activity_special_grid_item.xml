@@ -21,7 +21,7 @@
 
             <ImageView
                 android:id="@+id/iv_main_grid_icon"
-                android:layout_width="300dp"
+                android:layout_width="200dp"
                 android:layout_height="200dp"/>
 
             <LinearLayout
@@ -35,11 +35,9 @@
                     android:id="@+id/tv_main_grid_project"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center"
-                    android:text="--"
+                    android:textSize="15dp"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"/>
+                    android:textColor="@color/colorBlack"/>
 
             </LinearLayout>
         </LinearLayout>

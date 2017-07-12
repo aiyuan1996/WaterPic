@@ -43,6 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
+import tobeone.waterpic.fragment.LocationMapFragment;
 import tobeone.waterpic.fragment.WaterLocalFragment;
 import tobeone.waterpic.fragment.WaterServerFragment;
 import tobeone.waterpic.utils.ImageUtil;
@@ -58,6 +59,8 @@ public class MainActivity extends BaseActivity
     private AddWaterPicFragment addWaterPicFragment;
     private WaterLocalFragment waterLocalFragment;
     private WaterServerFragment waterServerFragment;
+
+    private LocationMapFragment locationMapFragment;
 
     private  DrawerLayout drawer;
 
@@ -173,11 +176,29 @@ public class MainActivity extends BaseActivity
             case R.id.nav_share:
                 break;
             case R.id.nav_send:
+                initLocationMap();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void initLocationMap() {
+        getSupportActionBar().setTitle("附近地图");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        if (addWaterPicFragment == null) {
+        locationMapFragment = new LocationMapFragment();
+        transaction.add(R.id.content_main, locationMapFragment);
+//        }
+        //隐藏所有fragment
+        hideFragment(transaction);
+        //显示需要显示的fragment
+        transaction.show(locationMapFragment);
+        transaction.commit();
+
+
+    }
+
     private void hideFragment(FragmentTransaction transaction){
 
         if (addWaterPicFragment != null){
@@ -189,6 +210,9 @@ public class MainActivity extends BaseActivity
         if(waterServerFragment != null){
             transaction.hide(waterServerFragment);
         }
+        if (locationMapFragment != null){
+            transaction.hide(locationMapFragment);
+        }
 
 
     }
@@ -197,10 +221,10 @@ public class MainActivity extends BaseActivity
 
         getSupportActionBar().setTitle("添加水印");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (addWaterPicFragment == null) {
-            addWaterPicFragment = new AddWaterPicFragment();
+//        if (addWaterPicFragment == null) {
+              addWaterPicFragment = new AddWaterPicFragment();
             transaction.add(R.id.content_main, addWaterPicFragment);
-        }
+//        }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment
@@ -226,10 +250,10 @@ public class MainActivity extends BaseActivity
 
         getSupportActionBar().setTitle("本地水印相册");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (waterLocalFragment == null) {
+//        if (waterLocalFragment == null) {
             waterLocalFragment = new WaterLocalFragment();
             transaction.add(R.id.content_main, waterLocalFragment);
-        }
+//        }
         //隐藏所有fragment
         hideFragment(transaction);
         //显示需要显示的fragment

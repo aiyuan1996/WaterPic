@@ -304,7 +304,7 @@ public class AddWaterPicFragment extends Fragment {
                         @Override
                         public void done(String s, BmobException e) {
                             if(e==null){
-                                ToastUtils.showShort(getActivity(),"添加数据成功，返回objectId为："+s);
+                                ToastUtils.showShort(getActivity(),"上传水印图片成功");
                             }else{
                                 ToastUtils.showShort(getActivity(),"创建数据失败：" + e.getMessage());
                                 Log.d(TAG, "---->>>" + e.getMessage());
@@ -328,7 +328,7 @@ public class AddWaterPicFragment extends Fragment {
         if (!tempfile.exists()) {
                 tempfile.mkdir();
                 }
-        File file = new File(filePath, "Water"+addProjectNameText.getText().toString().trim() + System.currentTimeMillis() + PHOTO_IMAGE_FILE_NAME);
+        File file = new File(filePath, "WaterMark"+addProjectNameText.getText().toString().trim() + System.currentTimeMillis() + PHOTO_IMAGE_FILE_NAME);
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {

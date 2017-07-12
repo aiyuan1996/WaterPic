@@ -60,4 +60,14 @@ public class LocalWaterInfo extends DataSupport implements Serializable {
     public void setPictureUri(String pictureUri) {
         this.pictureUri = pictureUri;
     }
+
+
+
+    @Override
+    public String toString() {
+        return getProjectName() + "\n"
+                + getCompanyName() + "\n"
+                + getCurrentTime();
+    }
+
 }
