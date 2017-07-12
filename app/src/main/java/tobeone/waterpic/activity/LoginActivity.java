@@ -2,13 +2,13 @@ package tobeone.waterpic.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,7 +17,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
-import tobeone.waterpic.utils.ActivityCollector;
 import tobeone.waterpic.utils.CustomDialog;
 import tobeone.waterpic.utils.SPUtils;
 import tobeone.waterpic.utils.ToastUtils;
@@ -39,6 +38,15 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+
+        if (bmobUser!=null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            //intent.putExtra("tel",phone);
+            startActivity(intent);
+            finish();
+        }
+
         initView();
     }
 
