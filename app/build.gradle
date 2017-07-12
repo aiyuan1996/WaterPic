@@ -43,6 +43,7 @@ dependencies {
     //bmob兼容Android6.0
     //圆角图片CircleImageView
     //图片加载库Glide
+    compile project (':Weather')
     compile files('libs/AMap_Location_V3.4.1_20170629.jar')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'

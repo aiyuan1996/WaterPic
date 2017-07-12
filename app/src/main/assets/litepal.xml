@@ -6,6 +6,9 @@
 
     <list>
         <mapping class="tobeone.waterpic.entity.Local.LocalWaterInfo" />
+        <mapping class = "aiyuan1996.cn.weather.db.Province"/>
+        <mapping class = "aiyuan1996.cn.weather.db.City"/>
+        <mapping class = "aiyuan1996.cn.weather.db.County"/>
     </list>
 
     <!--

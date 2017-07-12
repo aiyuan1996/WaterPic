@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.util.List;
 
+import aiyuan1996.cn.weather.WeatherMainActivity;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -70,7 +71,7 @@ public class MainActivity extends BaseActivity
     private static final int IMAGE_REQUEST_CODE = 101;
     private static final int RESULT_REQUEST_CODE = 102;
     private static final int REQUEST_BLUETOOTH_PERMISSION = 10;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "WeatherMainActivity";
     private File tempFile = null;
 
 
@@ -166,6 +167,8 @@ public class MainActivity extends BaseActivity
                 initWaterLocalfragment();
                 break;
             case R.id.nav_setting:
+                Intent intent = new Intent(MainActivity.this,WeatherMainActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_share:
                 break;
