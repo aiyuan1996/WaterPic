@@ -46,19 +46,23 @@ public class WaterLocalFragment extends Fragment {
         mGridView = (GridView) v.findViewById(R.id.mGridView);
 
         mList = DataSupport.findAll(LocalWaterInfo.class);
-        Log.d("LocalWater",mList.get(0).getCompanyName());
-       ToastUtils.showShort(getActivity(),"打开本地相册");
+        if (mList.size()!=0){
+            Log.d("LocalWater",mList.get(0).getCompanyName());
 
-        mSpecialGridAdapter = new SpecialGridAdapter(getActivity(),mList);
-        mGridView.setAdapter(mSpecialGridAdapter);
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), GalleryActivity.class);
-                intent.putExtra("water_info",mList.get(i));
-                startActivity(intent);
-            }
-        });
+
+            mSpecialGridAdapter = new SpecialGridAdapter(getActivity(),mList);
+            mGridView.setAdapter(mSpecialGridAdapter);
+            mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(getActivity(), GalleryActivity.class);
+                    intent.putExtra("water_info",mList.get(i));
+                    startActivity(intent);
+                }
+            });
+        }else{
+            ToastUtils.showLong(getActivity(),"本地相册为空！");
+        }
 
     }
 
