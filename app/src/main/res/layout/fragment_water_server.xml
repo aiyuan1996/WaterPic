@@ -5,9 +5,14 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="400dp"
         android:scaleType="fitCenter" />
     <!-- android:spacing 设置图片之间的间距 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addressText"
+        android:textSize="15dp"/>
     <Gallery
         android:id="@+id/gallery"
         android:layout_width="match_parent"

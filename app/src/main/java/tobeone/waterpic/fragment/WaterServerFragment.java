@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +31,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -56,8 +58,10 @@ import tobeone.waterpic.utils.ToastUtils;
 public class WaterServerFragment extends Fragment{
     private Gallery gallery;
     private ImageView iv;
+    private TextView addressText;
 
     private ImageAdapter imageAdapter;
+  //  private Handler handler;
 
     private  int position = -1;
 
@@ -69,13 +73,14 @@ public class WaterServerFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_water_server,container,false);
         queryObjects(view);
-
+//        handler = new Handler();
         return view;
     }
 
     private void initView(View view){
         iv = (ImageView) view.findViewById(R.id.imageView);
         gallery = (Gallery) view.findViewById(R.id.gallery);
+        addressText = (TextView) view.findViewById(R.id.addressText);
 
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,67 +93,65 @@ public class WaterServerFragment extends Fragment{
 
                             //下载图片到本地
                             case 0:
-                                OkHttpClient client = new OkHttpClient();
-                                final Request request = new Request.Builder()
-                                        .get()
-                                        .url(querylist.get(position).getPicture().getFileUrl())
-                                        .build();
-                                Call call = client.newCall(request);
-                                call.enqueue(new Callback() {
-                                    @Override
-                                    public void onFailure(Call call, IOException e) {
-                                        ToastUtils.showShort(getActivity(),"下载失败，请稍后再试！");
-                                    }
-
-                                    @Override
-                                    public void onResponse(Call call, Response response) throws IOException {
-
-                                        //拿到字节流
-                                        InputStream is = response.body().byteStream();
-
-                                        int len = 0;
-
-                                        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/WaterMark";
-                                        File tempfile = new File(filePath);
-                                        if (!tempfile.exists()) {
-                                            tempfile.mkdir();
-                                        }
-                                        File file = new File(filePath, "WaterMark"+querylist.get(position).getProjectName() + System.currentTimeMillis() + "pic.jpg");
-
-                                        FileOutputStream fos = new FileOutputStream(file);
-                                        byte[] buf = new byte[128];
-
-                                        while ((len = is.read(buf)) != -1){
-                                            fos.write(buf, 0, len);
-                                        }
-
-                                        fos.flush();
-                                        //关闭流
-                                        fos.close();
-                                        is.close();
-                                        LocalWaterInfo localWaterInfo = new LocalWaterInfo();
-                                        localWaterInfo.setProjectName(querylist.get(position).getProjectName());
-                                        localWaterInfo.setCompanyName(querylist.get(position).getCompanyName());
-                                        localWaterInfo.setCurrentTime(querylist.get(position).getCurrentTime());
-                                        localWaterInfo.setLocation(querylist.get(position).getLocation());
-                                        localWaterInfo.setPictureUri(file.getPath());
-                                        ToastUtils.showShort(getActivity(),"水印图片保存在：" + file.getPath());
-                                        localWaterInfo.save();
-                                    }
-                                });
-
+//                                new Thread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        OkHttpClient client = new OkHttpClient();
+//                                        final Request request = new Request.Builder()
+//                                                .get()
+//                                                .url(querylist.get(position).getPicture().getFileUrl())
+//                                                .build();
+//                                        Call call = client.newCall(request);
+//                                        call.enqueue(new Callback() {
+//                                            @Override
+//                                            public void onFailure(Call call, IOException e) {
+//                                                ToastUtils.showShort(getActivity(),"下载失败，请稍后再试！");
+//                                            }
+//
+//                                            @Override
+//                                            public void onResponse(Call call, Response response) throws IOException {
+//
+//                                                //拿到字节流
+//                                                InputStream is = response.body().byteStream();
+//
+//                                                int len = 0;
+//
+//                                                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/WaterMark";
+//                                                File tempfile = new File(filePath);
+//                                                if (!tempfile.exists()) {
+//                                                    tempfile.mkdir();
+//                                                }
+//                                                File file = new File(filePath, "WaterMark"+querylist.get(position).getProjectName() + System.currentTimeMillis() + "pic.jpg");
+//
+//                                                FileOutputStream fos = new FileOutputStream(file);
+//                                                byte[] buf = new byte[128];
+//
+//                                                while ((len = is.read(buf)) != -1){
+//                                                    fos.write(buf, 0, len);
+//                                                }
+//
+//                                                fos.flush();
+//                                                //关闭流
+//                                                fos.close();
+//                                                is.close();
+//                                                LocalWaterInfo localWaterInfo = new LocalWaterInfo();
+//                                                localWaterInfo.setProjectName(querylist.get(position).getProjectName());
+//                                                localWaterInfo.setCompanyName(querylist.get(position).getCompanyName());
+//                                                localWaterInfo.setCurrentTime(querylist.get(position).getCurrentTime());
+//                                                localWaterInfo.setLocation(querylist.get(position).getLocation());
+//                                                localWaterInfo.setPictureUri(file.getPath());
+//                                                ToastUtils.showShort(getActivity(),"水印图片保存在：" + file.getPath());
+//                                                localWaterInfo.save();
+//                                            }
+//                                        });
+//                                    }
+//                                }).start();
                                 break;
+
                         }
                     }
                     }).show();
-
-
                 }
-
-
-
-
-
         }
         });
 
@@ -159,6 +162,7 @@ public class WaterServerFragment extends Fragment{
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                     GlideUtils.loadImageView(getActivity(),querylist.get(i).getPicture().getFileUrl(),iv);
+                    addressText.setText(querylist.get(i).getLocation());
                     position = i;
                 }
             });
