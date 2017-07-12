@@ -63,6 +63,7 @@ public class WaterServerFragment extends Fragment{
 
         if(querylist.size()!=0){
 
+            GlideUtils.loadImageView(getActivity(),querylist.get(0).getPicture().getFileUrl(),iv);
             imageAdapter = new ImageAdapter(getActivity(),querylist);
             gallery.setAdapter(imageAdapter);
             gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {

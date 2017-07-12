@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="cardview_dark_background">#FF424242</color>
+    <array name="selectArray">
+        <item>查看</item>
+        <item>删除</item>
+        <item>上传到云端</item>
+    </array>
 
 
 </resources>
