@@ -43,6 +43,7 @@ import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
 import tobeone.waterpic.fragment.AddWaterPicFragment;
 import tobeone.waterpic.fragment.WaterLocalFragment;
+import tobeone.waterpic.fragment.WaterServerFragment;
 import tobeone.waterpic.utils.ImageUtil;
 import tobeone.waterpic.utils.PermissionListener;
 import tobeone.waterpic.utils.ToastUtils;
@@ -55,6 +56,7 @@ public class MainActivity extends BaseActivity
 
     private AddWaterPicFragment addWaterPicFragment;
     private WaterLocalFragment waterLocalFragment;
+    private WaterServerFragment waterServerFragment;
 
     private  DrawerLayout drawer;
 
@@ -102,9 +104,6 @@ public class MainActivity extends BaseActivity
         initview();
 
         initAddWaterPic();
-
-
-
     }
 
     @Override
@@ -157,10 +156,11 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.nav_take_photo:
-                break;
             case R.id.nav_add_watermark:
                 initAddWaterPic();
+                break;
+            case R.id.nav_cloud_album:
+                initWaterServerFragment();
                 break;
             case R.id.nav_view_album:
                 initWaterLocalfragment();
@@ -183,6 +183,9 @@ public class MainActivity extends BaseActivity
         if (waterLocalFragment != null) {
             transaction.hide(waterLocalFragment);
         }
+        if(waterServerFragment != null){
+            transaction.hide(waterServerFragment);
+        }
 
 
     }
@@ -199,6 +202,21 @@ public class MainActivity extends BaseActivity
         hideFragment(transaction);
         //显示需要显示的fragment
         transaction.show(addWaterPicFragment);
+        transaction.commit();
+    }
+
+    private void initWaterServerFragment() {
+
+        getSupportActionBar().setTitle("云端水印相册");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (waterServerFragment == null) {
+            waterServerFragment = new WaterServerFragment();
+            transaction.add(R.id.content_main, waterServerFragment);
+        }
+        //隐藏所有fragment
+        hideFragment(transaction);
+        //显示需要显示的fragment
+        transaction.show(waterServerFragment);
         transaction.commit();
     }
     private void initWaterLocalfragment() {
@@ -402,8 +420,5 @@ public class MainActivity extends BaseActivity
 
         }
     }
-
-
-
 
 }
