@@ -10,13 +10,12 @@ import android.os.SystemClock;
 import android.preference.PreferenceManager;
 
 import java.io.IOException;
-
-import aiyuan1996.cn.weather.gson.Weather;
-import aiyuan1996.cn.weather.util.HttpUtil;
-import aiyuan1996.cn.weather.util.Utility;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import tobeone.waterpic.gson.Weather;
+import tobeone.waterpic.utils.HttpUtil;
+import tobeone.waterpic.utils.Utility;
 
 public class AutoUpdateService extends Service {
     public AutoUpdateService() {

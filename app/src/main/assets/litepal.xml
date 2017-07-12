@@ -11,8 +11,5 @@
         <mapping class = "tobeone.waterpic.entity.weather.Province"/>
     </list>
 
-    <!--
-        <storage value="external" />
-      -->
 
     </litepal>

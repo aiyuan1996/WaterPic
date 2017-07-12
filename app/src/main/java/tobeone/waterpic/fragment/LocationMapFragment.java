@@ -171,7 +171,7 @@ public class LocationMapFragment extends Fragment implements  LocationSource, AM
         //位置
         options.position(new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude()));
         StringBuffer buffer = new StringBuffer();
-        buffer.append( buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + "" + amapLocation.getProvince() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum()));
+        buffer.append( buffer.append( amapLocation.getProvince() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum()));
         //标题
         options.title(buffer.toString());
         //设置多少帧刷新一次图片资源

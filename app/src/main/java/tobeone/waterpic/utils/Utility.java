@@ -8,10 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import aiyuan1996.cn.weather.db.City;
-import aiyuan1996.cn.weather.db.County;
-import aiyuan1996.cn.weather.db.Province;
-import aiyuan1996.cn.weather.gson.Weather;
+import tobeone.waterpic.entity.weather.City;
+import tobeone.waterpic.entity.weather.County;
+import tobeone.waterpic.entity.weather.Province;
+import tobeone.waterpic.gson.Weather;
+
 
 /**
  * Created by aiyuan on 2017/1/23.
