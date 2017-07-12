@@ -44,7 +44,6 @@ public class FindPasswordActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_password);
-        mPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         ButterKnife.bind(this);
     }

@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import cn.bmob.v3.BmobUser;
 import tobeone.waterpic.R;
 import tobeone.waterpic.utils.ActivityCollector;
 
@@ -38,6 +39,10 @@ public class UserManagerActivity extends BaseActivity {
                     startActivity(intent);
                 }else if (position == 1){
                     ActivityCollector.finishAll();
+                    BmobUser bmobUser = BmobUser.getCurrentUser();
+                    bmobUser.logOut();
+                    intent = new Intent(UserManagerActivity.this,LoginActivity.class);
+                    startActivity(intent);
                     //System.exit(0);
                 }
             }

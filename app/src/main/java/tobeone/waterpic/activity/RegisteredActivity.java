@@ -47,7 +47,6 @@ public class RegisteredActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registered);
-        mPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
         ButterKnife.bind(this);
     }
 
