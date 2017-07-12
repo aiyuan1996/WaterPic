@@ -328,7 +328,7 @@ public class AddWaterPicFragment extends Fragment {
         if (!tempfile.exists()) {
                 tempfile.mkdir();
                 }
-        File file = new File(filePath, "Water"+addProjectNameText.getText().toString().trim() + System.currentTimeMillis() + PHOTO_IMAGE_FILE_NAME);
+        File file = new File(filePath, "WaterMark"+addProjectNameText.getText().toString().trim() + System.currentTimeMillis() + PHOTO_IMAGE_FILE_NAME);
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)) {

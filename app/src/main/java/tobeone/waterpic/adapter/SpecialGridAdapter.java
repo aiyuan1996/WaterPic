@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import tobeone.waterpic.R;
@@ -63,11 +65,12 @@ public class SpecialGridAdapter extends BaseAdapter{
             viewHolder = (ViewHolder) view.getTag();
         }
         model = mList.get(i);
-        GlideUtils.loadImageCrop(mContext, model.getPictureUri(), viewHolder.iv_main_grid_icon);
-        viewHolder.tv_main_grid_project.setText(model.getProjectName() + "");
+
+        Glide.with(mContext).load(model.getPictureUri()).override(200,200).centerCrop().into(viewHolder.iv_main_grid_icon);
+       // GlideUtils.loadImageCrop(mContext, model.getPictureUri(), viewHolder.iv_main_grid_icon);
+        viewHolder.tv_main_grid_project.setText( model.toString());
         return view;
     }
-
     class ViewHolder {
         private ImageView iv_main_grid_icon;
         private TextView tv_main_grid_project;
