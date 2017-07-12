@@ -15,5 +15,5 @@ public class ConstantUtils {
     public static final String SHARE_IS_FIRST = "isFirst";
 
     //Bmob key
-    public static final String BMOB_APP_ID = "3698daed57d75f2bba2dd967c6d2b206";
+    public static final String BMOB_APP_ID = "de2dc4c5362cc6265f43d36b71064e77";
 }

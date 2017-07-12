@@ -3,6 +3,7 @@ package tobeone.waterpic.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -38,6 +39,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
         ButterKnife.bind(this);
         initView();
     }
@@ -86,7 +88,7 @@ public class LoginActivity extends BaseActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        ToastUtils.showShort(getApplicationContext(), getString(R.string.text_login_failure)+ e.toString());
+                        ToastUtils.showShort(getApplicationContext(), getString(R.string.text_login_failure)+"请检查账号密码是否正确！");
                     }
                 }
             });

@@ -3,6 +3,7 @@ package tobeone.waterpic.activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +47,7 @@ public class RegisteredActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registered);
-
+        mPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
         ButterKnife.bind(this);
     }
 
