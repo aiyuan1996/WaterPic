@@ -64,7 +64,7 @@ dependencies {
     compile 'com.amap.api:3dmap:latest.integration'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.google.code.gson:gson:2.7'
+    compile 'com.android.support:multidex:1.0.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.android.support:multidex:1.0.0'
 }

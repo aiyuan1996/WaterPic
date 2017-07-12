@@ -41,7 +41,7 @@ public class WaterServerFragment extends Fragment{
     private String projectName;
     private String companyName;
     //private String[] picUrls;
-    ArrayList<String> arraylist = new ArrayList<String>();
+    private ArrayList<String> arraylist = new ArrayList<String>();
     private Bitmap[] cloudPics;
     private static final String PHOTO_IMAGE_FILE_NAME = "fileImg.jpg";
     private static final String TAG = "WaterServerFragment";
@@ -106,8 +106,11 @@ public class WaterServerFragment extends Fragment{
 //		observable形式
         bmobQuery.findObjectsObservable(WaterInfoEntity.class)
                 .subscribe(new Subscriber<List<WaterInfoEntity>>() {
+                    ArrayList<String> querylist = new ArrayList<String>();
                     @Override
-                    public void onCompleted() {}
+                    public void onCompleted() {
+                        arraylist = querylist;
+                    }
 
                     @Override
                     public void onError(Throwable e) {
@@ -122,10 +125,9 @@ public class WaterServerFragment extends Fragment{
                             projectName = waterInfoEnerty.getProjectName();
                             companyName = waterInfoEnerty.getCompanyName();
                             Log.d(TAG, waterInfoEnerty.getPicture().getFileUrl());
-                            arraylist.add(waterInfoEnerty.getPicture().getFileUrl());
+                            querylist.add(waterInfoEnerty.getPicture().getFileUrl());
                             Log.d(TAG, "44444444444");
                         }
-
                     }
                 });
     }

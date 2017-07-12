@@ -2,7 +2,6 @@ package tobeone.waterpic.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,7 +18,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import tobeone.waterpic.R;
 import tobeone.waterpic.entity.UserEntity;
-import tobeone.waterpic.utils.ActivityCollector;
 import tobeone.waterpic.utils.CustomDialog;
 import tobeone.waterpic.utils.SPUtils;
 import tobeone.waterpic.utils.ToastUtils;
@@ -41,6 +40,15 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         mPhone.setInputType(InputType.TYPE_CLASS_NUMBER);
         ButterKnife.bind(this);
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+
+        if (bmobUser!=null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            //intent.putExtra("tel",phone);
+            startActivity(intent);
+            finish();
+        }
+
         initView();
     }
 
@@ -88,7 +96,7 @@ public class LoginActivity extends BaseActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        ToastUtils.showShort(getApplicationContext(), getString(R.string.text_login_failure)+"请检查账号密码是否正确！");
+                        ToastUtils.showShort(getApplicationContext(), getString(R.string.text_login_failure)+ e.toString());
                     }
                 }
             });
