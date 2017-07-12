@@ -304,7 +304,7 @@ public class AddWaterPicFragment extends Fragment {
                         @Override
                         public void done(String s, BmobException e) {
                             if(e==null){
-                                ToastUtils.showShort(getActivity(),"添加数据成功，返回objectId为："+s);
+                                ToastUtils.showShort(getActivity(),"上传水印图片成功");
                             }else{
                                 ToastUtils.showShort(getActivity(),"创建数据失败：" + e.getMessage());
                                 Log.d(TAG, "---->>>" + e.getMessage());

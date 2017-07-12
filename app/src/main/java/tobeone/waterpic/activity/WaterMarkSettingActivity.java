@@ -205,14 +205,14 @@ public class WaterMarkSettingActivity extends AppCompatActivity {
                             // When the boom-button corresponding this builder is clicked.
                             if (index == 0) {
                                 //// TODO: 2017/7/9
-                                if (!"".equals(direction) && !"".equals(fonts)) {
+                                if (!"".equals(fonts)) {
                                     int[] temp = returnValueCode();
                                     for (int i = 0; i < temp.length; i++) {
                                         Log.d(TAG, "" + temp[i]);
                                     }
                                     saveBtn();
-                                    Toast.makeText(WaterMarkSettingActivity.this, "您保存的当前操作是:" +
-                                            "选择将水印放在" + direction + "  背景和字体颜色是" + fonts, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(WaterMarkSettingActivity.this, "您保存的当前操作是:" +
+//                                            "选择将水印放在" + direction + "  背景和字体颜色是" + fonts, Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(WaterMarkSettingActivity.this, "您当前并未进行任何有效操作，请从新选择", Toast.LENGTH_SHORT).show();
                                 }
