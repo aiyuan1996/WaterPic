@@ -61,18 +61,19 @@ public class WaterServerFragment extends Fragment{
         iv = (ImageView) view.findViewById(R.id.imageView);
         gallery = (Gallery) view.findViewById(R.id.gallery);
 
+        if(querylist.size()!=0){
 
-        imageAdapter = new ImageAdapter(getActivity(),querylist);
-        ToastUtils.showShort(getActivity(),""+querylist.size());
-        gallery.setAdapter(imageAdapter);
-        gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GlideUtils.loadImageView(getActivity(),querylist.get(position).getPicture().getFileUrl(),iv);
-            }
-        });
-
-
+            imageAdapter = new ImageAdapter(getActivity(),querylist);
+            gallery.setAdapter(imageAdapter);
+            gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    GlideUtils.loadImageView(getActivity(),querylist.get(position).getPicture().getFileUrl(),iv);
+                }
+            });
+        }else{
+            ToastUtils.showLong(getActivity(),"云端相册为空！，请先上传照片");
+        }
     }
     public void queryObjects(final  View view) {
         final BmobQuery<WaterInfoEntity> bmobQuery = new BmobQuery<WaterInfoEntity>();

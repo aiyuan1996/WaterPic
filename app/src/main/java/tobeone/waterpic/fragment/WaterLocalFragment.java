@@ -60,6 +60,16 @@ public class WaterLocalFragment extends Fragment {
                     startActivity(intent);
                 }
             });
+
+           mGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+               @Override
+               public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                   return false;
+               }
+           });
         }else{
             ToastUtils.showLong(getActivity(),"本地相册为空！");
         }
