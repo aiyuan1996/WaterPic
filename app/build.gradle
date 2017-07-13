@@ -9,6 +9,11 @@ android {
             storePassword 'waterpic'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -67,4 +72,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile files('libs/BmobStat_v1.1_170114.jar')
 }

@@ -2,11 +2,15 @@ package tobeone.waterpic.app;
 
 import android.app.Application;
 
+import com.amap.api.mapcore.util.cn;
+
 import org.litepal.LitePal;
 
+import butterknife.BuildConfig;
 import butterknife.ButterKnife;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
+import cn.bmob.v3.statistics.AppStat;
 import tobeone.waterpic.utils.ConfigUtils;
 import tobeone.waterpic.utils.ConstantUtils;
 
@@ -30,7 +34,7 @@ public class App extends Application {
         // 读取配置文件
         ConfigUtils.getInstance().readConfig();
         // 依赖注入框架ButterKnife
-        ButterKnife.setDebug(butterknife.BuildConfig.DEBUG);
+        ButterKnife.setDebug(BuildConfig.DEBUG);
 
         // 初始化Bmob
         if (!ConstantUtils.BMOB_APP_ID.isEmpty()) {
@@ -42,6 +46,9 @@ public class App extends Application {
                     .build();
             Bmob.initialize(config);
         }
+
+        AppStat.i(ConstantUtils.BMOB_APP_ID,null);
+
        //初始化LitePal
         LitePal.initialize(this);
     }

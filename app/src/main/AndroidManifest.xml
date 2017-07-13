@@ -59,14 +59,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.AddProjectName" />
         <activity android:name=".activity.AddCompanyName" />
-        <activity android:name=".activity.WaterMarkSettingActivity" />
+        <activity android:name=".activity.WaterMarkSettingActivity" />5
         <activity
             android:name=".activity.BigPictureActivity"
             android:theme="@style/NoTitleFullscreen" />
-        <activity
-            android:name=".activity.NewActivity"
-            android:label="@string/title_activity_new"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.GalleryActivity"
             android:label="@string/title_activity_gallery"
