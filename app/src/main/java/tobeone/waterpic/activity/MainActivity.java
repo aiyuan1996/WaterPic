@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -207,7 +211,17 @@ public class MainActivity extends BaseActivity
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ToastUtils.showShort(MainActivity.this,"您设置的皮肤类型为" + items[i]);
-                nav_layout.setBackgroundResource(skins[i]);
+
+                ImageView image = new ImageView(MainActivity.this);
+                BitmapFactory.Options opt = new BitmapFactory.Options();
+                opt.inPreferredConfig = Bitmap.Config.RGB_565;
+                opt.inPurgeable = true;
+                opt.inInputShareable = true;
+                InputStream is = getResources().openRawResource(
+                        skins[i] );
+                Bitmap bm = BitmapFactory.decodeStream(is, null, opt);
+                BitmapDrawable bd = new BitmapDrawable(getResources(), bm);
+                nav_layout.setBackgroundDrawable(bd);
             }
         });
         builder.setCancelable(true);
